@@ -1,0 +1,233 @@
+---
+---
+
+<section class="parallax-gallery-section" id="gallery">
+  <div class="gallery-header">
+    <h2>Atletas & Profesionales</h2>
+    <p>Trayectoria compartida con los mejores</p>
+  </div>
+
+  <div class="gallery-container">
+    <!-- Columna 1 - Velocidad Lenta -->
+    <div class="gallery-col col-1">
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800&auto=format&fit=crop" alt="Atleta entrenando" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop" alt="Gimnasio" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=800&auto=format&fit=crop" alt="Deporte al aire libre" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=800&auto=format&fit=crop" alt="Entrenamiento personal" />
+      </div>
+    </div>
+
+    <!-- Columna 2 - Velocidad Media (Dirección opuesta o diferente velocidad) -->
+    <div class="gallery-col col-2">
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=800&auto=format&fit=crop" alt="Levantamiento de pesas" />
+      </div>
+      <div class="gallery-item text-item">
+        <h3>Alto Rendimiento</h3>
+        <p>Preparación física para la élite</p>
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1517963879466-cd115eb9d7e8?q=80&w=800&auto=format&fit=crop" alt="Crossfit" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1594882645126-14020914d58d?q=80&w=800&auto=format&fit=crop" alt="Corredor" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1574680096141-1cddd32e24f7?q=80&w=800&auto=format&fit=crop" alt="Fitness" />
+      </div>
+    </div>
+
+    <!-- Columna 3 - Velocidad Rápida -->
+    <div class="gallery-col col-3">
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=800&auto=format&fit=crop" alt="Yoga y flexibilidad" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1595078475328-1ab05d0a6a0e?q=80&w=800&auto=format&fit=crop" alt="Entrenamiento funcional" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=800&auto=format&fit=crop" alt="Salud y bienestar" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1605296867304-6f26fd843ca8?q=80&w=800&auto=format&fit=crop" alt="Gimnasio moderno" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  window.addEventListener('DOMContentLoaded', () => {
+    // Animación Parallax para cada columna
+    const col1 = document.querySelector('.col-1');
+    const col2 = document.querySelector('.col-2');
+    const col3 = document.querySelector('.col-3');
+
+    // Columna 1: Sube lentamente
+    gsap.to(col1, {
+      y: -100, // Desplazamiento suave
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".parallax-gallery-section",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1
+      }
+    });
+
+    // Columna 2: Sube más rápido (efecto profundidad)
+    gsap.to(col2, {
+      y: -300, // Más desplazamiento
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".parallax-gallery-section",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1
+      }
+    });
+
+    // Columna 3: Sube aún más rápido
+    gsap.to(col3, {
+      y: -500, // Máximo desplazamiento
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".parallax-gallery-section",
+        start: "top bottom",
+        end: "bottom top",
+        scrub: 1
+      }
+    });
+  });
+</script>
+
+<style>
+  .parallax-gallery-section {
+    padding: 8rem 2rem;
+    background: var(--color-dark);
+    color: var(--color-light);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .gallery-header {
+    text-align: center;
+    margin-bottom: 6rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .gallery-header h2 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #fff 0%, #aaa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .gallery-header p {
+    font-size: 1.2rem;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+  }
+
+  .gallery-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    height: 120vh; /* Altura fija para contener el scroll parallax */
+    overflow: hidden; /* Ocultar lo que se sale */
+    transform: rotate(-5deg) scale(1.1); /* Un toque de estilo dinámico */
+  }
+
+  .gallery-col {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  /* Posicionamiento inicial para el efecto parallax */
+  .col-1 { margin-top: 0; }
+  .col-2 { margin-top: 10vh; }
+  .col-3 { margin-top: 20vh; }
+
+  .gallery-item {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+    filter: grayscale(100%);
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.05);
+    filter: grayscale(0%);
+  }
+
+  .text-item {
+    background: var(--color-primary);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    aspect-ratio: 3/4;
+  }
+
+  .text-item h3 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-light);
+  }
+
+  .text-item p {
+    font-size: 1rem;
+    opacity: 0.9;
+  }
+
+  @media (max-width: 768px) {
+    .gallery-container {
+      grid-template-columns: 1fr;
+      height: auto;
+      transform: none;
+      gap: 1rem;
+    }
+
+    .gallery-col {
+      margin-top: 0 !important;
+    }
+
+    .col-2, .col-3 {
+      display: none; /* En móvil mostramos solo una columna para no saturar */
+    }
+    
+    .col-1 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+  }
+</style>

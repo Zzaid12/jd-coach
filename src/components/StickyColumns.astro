@@ -1,0 +1,275 @@
+---
+---
+
+<section class="horizontal-scroll-section">
+  <div class="cards-wrapper">
+    <!-- Card 1 -->
+    <div class="card-container">
+      <div class="card">
+        <div class="card-content">
+          <h2>La ciencia del alto rendimiento al servicio de tu objetivo.</h2>
+          <p>Soy Pablo Jiménez Daza, preparador físico y entrenador personal. Tras más de 10 años de experiencia y miles de horas en pista y gimnasio, mi conclusión es clara: el compromiso no entiende de categorías. Ya seas un jugador de la ACB o una persona que busca transformar su salud, mi enfoque es el mismo: máximo rigor técnico e implicación absoluta.</p>
+        </div>
+        <div class="card-image">
+          <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=2070&auto=format&fit=crop" alt="Entrenador Personal Madrid" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card-container">
+      <div class="card reversed">
+        <div class="card-content">
+          <h2>Autoridad técnica: Donde la ciencia se encuentra con el movimiento</h2>
+          <p>Mi metodología no se basa en modas, sino en una formación de vanguardia diseñada para entender el cuerpo humano como una unidad integrada:</p>
+          <ul>
+            <li><strong>Ciencia del Entrenamiento de Fuerza:</strong> Graduado en Ciencias del Deporte (2016) y Máster en Alto Rendimiento por la Universidad Pablo de Olavide.</li>
+            <li><strong>Neuro-entrenamiento:</strong> Especialista en la integración del sistema nervioso para optimizar el rendimiento y la eficiencia motora.</li>
+            <li><strong>Especialización en Biomecánica (PRI):</strong> Formación por el Postural Restoration Institute, enfocada en la optimización de patrones posturales.</li>
+            <li><strong>Rendimiento Integral:</strong> Formación específica en ciencias del alto rendimiento (velocidad, fuerza y resistencia).</li>
+          </ul>
+        </div>
+        <div class="card-image">
+          <img src="/foto1.png" alt="JD Coach Authority" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card-container">
+      <div class="card">
+        <div class="card-content">
+          <h2>Trayectoria: Del Élite al Alto Rendimiento Personal</h2>
+          <p>Mi criterio profesional se ha forjado en los escenarios más exigentes como preparador físico en ligas profesionales:</p>
+          <ul>
+            <li><strong>Ligas Profesionales:</strong> ACB, NBA, Liga Femenina Endesa, Primera/Segunda FEB y Liga Challenge.</li>
+            <li><strong>Proyección Internacional:</strong> NCAA y Selección Española (Categorías de formación).</li>
+            <li><strong>Canteras de Élite:</strong> Trabajando con el talento joven más importante de Madrid y España.</li>
+          </ul>
+          <p>Hoy aplico este estándar de élite tanto en <strong>JD_Athletes</strong> como en <strong>JD_Performers</strong>. Si eres capaz de comprometerte, mereces un entrenamiento de primer nivel.</p>
+        </div>
+        <div class="card-image">
+          <img src="/foto2.png" alt="JD Coach Experience" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card-container">
+      <div class="card reversed">
+        <div class="card-content">
+          <h2>Mi compromiso contigo: Un pacto de éxito</h2>
+          <p>No soy un entrenador que manda ejercicios; soy tu compañero de equipo. Mi método de trabajo se basa en una implicación innegociable:</p>
+          <blockquote>
+            "Tú marcas las metas y yo diseño el camino. Pero quiero que sepas algo: si tú fallas, fallamos los dos. Si logras tu objetivo, será el resultado de un esfuerzo compartido donde mi exigencia estará siempre a la altura de tu ambición."
+          </blockquote>
+        </div>
+        <div class="card-image">
+          <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=2070&auto=format&fit=crop" alt="Empieza hoy" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const wrapper = document.querySelector('.cards-wrapper');
+
+    function getScrollAmount() {
+      let wrapperWidth = wrapper.scrollWidth;
+      return -(wrapperWidth - window.innerWidth);
+    }
+
+    const horizontalTween = gsap.to(wrapper, {
+      x: getScrollAmount,
+      ease: "none",
+    });
+
+    ScrollTrigger.create({
+      trigger: ".horizontal-scroll-section",
+      start: "top top",
+      end: () => `+=${Math.abs(getScrollAmount())}`,
+      pin: true,
+      animation: horizontalTween,
+      scrub: 1,
+      invalidateOnRefresh: true,
+      refreshPriority: 1,
+    });
+  });
+</script>
+
+<style>
+  .horizontal-scroll-section {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: var(--color-light);
+  }
+
+  .cards-wrapper {
+    display: flex;
+    width: 400%; /* 4 cards * 100% */
+    height: 100%;
+    will-change: transform;
+  }
+
+  .card-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .card {
+    background: var(--color-dark);
+    color: var(--color-light);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 1200px;
+    height: 80vh;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  }
+
+  .card.reversed {
+    flex-direction: row-reverse;
+  }
+
+  .card-content {
+    padding: 4rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .card-image {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .card:hover .card-image img {
+    transform: scale(1.05);
+  }
+
+  .card h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    margin-bottom: 2rem;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--color-light);
+    font-weight: 500;
+  }
+
+  .card p {
+    font-size: clamp(0.95rem, 1.7vw, 1.1rem);
+    line-height: 1.6;
+    opacity: 0.8;
+    font-weight: 400;
+    text-transform: none;
+    margin-bottom: 1.25rem;
+  }
+
+  .card-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 2rem;
+  }
+
+  .card-content li {
+    font-size: clamp(0.9rem, 1.6vw, 1.05rem);
+    line-height: 1.5;
+    opacity: 0.9;
+    margin-bottom: 1rem;
+    padding-left: 1.75rem;
+    position: relative;
+  }
+
+  .card-content li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.6rem;
+    width: 7px;
+    height: 7px;
+    background: var(--color-primary);
+    border-radius: 1px;
+    transform: rotate(45deg);
+  }
+
+  .card-content strong {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .card-content blockquote {
+    font-style: italic;
+    font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+    line-height: 1.5;
+    margin-top: 2rem;
+    padding-left: 1.5rem;
+    border-left: 4px solid var(--color-primary);
+    color: var(--color-light);
+    opacity: 0.95;
+    position: relative;
+  }
+
+  .card-content blockquote::before {
+    content: '"';
+    position: absolute;
+    left: -0.5rem;
+    top: -1.5rem;
+    font-size: 5rem;
+    opacity: 0.1;
+    color: var(--color-primary);
+    font-family: serif;
+    pointer-events: none;
+  }
+
+  @media (max-width: 768px) {
+    .card-container {
+      padding: 1.5rem 1rem;
+    }
+
+    .card {
+      flex-direction: column !important;
+      height: 85vh;
+      max-height: 750px;
+    }
+
+    .card-content {
+      padding: 2.5rem 1.5rem;
+      flex: 1;
+      overflow-y: auto;
+      justify-content: flex-start;
+    }
+
+    .card-image {
+      flex: 0 0 35%;
+      order: -1;
+    }
+
+    .card h2 {
+      font-size: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+</style>

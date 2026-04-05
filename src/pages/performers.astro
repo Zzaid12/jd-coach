@@ -1,0 +1,134 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import ContentShowcase from '../components/ContentShowcase.astro';
+import ServicesCards from '../components/ServicesCards.astro';
+
+const services = [
+  {
+    id: "01",
+    title: "Cuerpo Escénico",
+    subtitle: "Estética y Función",
+    description: "Preparación física enfocada en las necesidades estéticas y funcionales del artista en el escenario.",
+    image: "/foto3.png",
+    features: ["Acondicionamiento físico", "Control postural", "Estética corporal"]
+  },
+  {
+    id: "02",
+    title: "Resistencia Giras",
+    subtitle: "Rendimiento Constante",
+    description: "Programas diseñados para mantener el pico de forma durante largos periodos de tour o temporadas teatrales.",
+    image: "/foto1.png",
+    features: ["Resistencia específica", "Programas de viaje", "Manejo de fatiga"]
+  },
+  {
+    id: "03",
+    title: "Dominio Corporal",
+    subtitle: "Fluidez Ártistica",
+    description: "Entrenamiento de movilidad y control motor para mejorar la expresividad y evitar lesiones en escena.",
+    image: "/foto2.png",
+    features: ["Movilidad dinámica", "Equilibrio y fuerza", "Readaptación funcional"]
+  },
+  {
+    id: "04",
+    title: "JD Performers",
+    subtitle: "Donde estés",
+    description: "Seguimiento online avanzado adaptado a los horarios irregulares y demandas del mundo del espectáculo.",
+    image: "/wetransfer_videos-jotade_2026-03-18_0829/IMG-20250405-WA0006.jpg",
+    features: ["Programas flexibles", "Análisis de vídeo", "Soporte constante"]
+  }
+];
+
+const performersItems = [
+  {
+    title: "Rendimiento Sin Límites",
+    subtitle: "Nivel Profesional",
+    description: "Sistema de entrenamiento optimizado para el máximo nivel. Adaptamos la biomecánica a tus necesidades específicas.",
+    media: {
+      type: 'video' as const,
+      src: "/wetransfer_videos-jotade_2026-03-18_0829/VID_20250601_044854_239.mp4"
+    }
+  },
+  {
+    title: "Método JD",
+    subtitle: "Ciencia Aplicada",
+    description: "No dejamos nada al azar. Cada ejercicio tiene un propósito biomecánico claro para maximizar tu potencial.",
+    media: {
+      type: 'image' as const,
+      src: "/foto2.png"
+    },
+    lightMode: true
+  },
+  {
+    title: "Control Total",
+    subtitle: "Potencia el Movimiento",
+    description: "Entrenamiento dinámico enfocado en el control corporal y la generación de fuerza eficiente.",
+    media: {
+      type: 'video' as const,
+      src: "/wetransfer_videos-jotade_2026-03-18_0829/VID-20250715-WA0034.mp4"
+    }
+  },
+  {
+    title: "Dedicación Plena",
+    subtitle: "Estrategia de Éxito",
+    description: "Potencia tu rendimiento físico y mental con nuestro programa de acompañamiento avanzado.",
+    media: {
+      type: 'image' as const,
+      src: "/wetransfer_videos-jotade_2026-03-18_0829/IMG-20250405-WA0006.jpg"
+    },
+    lightMode: true
+  }
+];
+---
+
+<Layout title="JD Performers | JD COACH">
+  <main>
+    <Hero 
+      title="JD Performers" 
+      titleLine2="" 
+      videoSrc="/videos%20hero/VID_20260326_052911_299_bsl.mp4" 
+      showCta={false}
+    />
+    
+    <ContentShowcase items={performersItems} />
+    
+    <ServicesCards services={services} title="JD Performers" subtitle="Entrenamiento para el escenario" />
+
+    <section class="page-content">
+      <div class="container">
+        <h2>Próximamente</h2>
+        <p>Potencia tu rendimiento físico y mental con nuestro programa de entrenamiento avanzado para Performers.</p>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .page-content {
+    background-color: var(--color-light);
+    color: var(--color-dark);
+    padding: 10rem 2rem;
+    text-align: center;
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  h2 {
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-family: 'Anton', sans-serif;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  p {
+    font-size: 1.2rem;
+    opacity: 0.8;
+  }
+</style>

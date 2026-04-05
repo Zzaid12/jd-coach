@@ -1,0 +1,179 @@
+---
+interface BentoItem {
+  type: 'text' | 'image' | 'video';
+  title?: string;
+  description?: string;
+  src?: string;
+  cols?: number;
+  rows?: number;
+  color?: string;
+  darkText?: boolean;
+}
+
+interface Props {
+  items: BentoItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<section class="bento-section">
+  <div class="bento-grid">
+    {items.map((item) => (
+      <div 
+        class={`bento-item ${item.type}`} 
+        style={`grid-column: span ${item.cols || 1}; grid-row: span ${item.rows || 1}; background-color: ${item.color || 'var(--color-dark)'}; color: ${item.darkText ? 'var(--color-dark)' : 'var(--color-light)'};`}
+      >
+        {item.type === 'text' && (
+          <div class="bento-content text-content">
+            {item.title && <h3>{item.title}</h3>}
+            {item.description && <p>{item.description}</p>}
+          </div>
+        )}
+        
+        {item.type === 'image' && (
+          <div class="bento-media">
+            <img src={item.src} alt={item.title || "Bento image"} loading="lazy" />
+            <div class="media-overlay">
+              {item.title && <h4>{item.title}</h4>}
+            </div>
+          </div>
+        )}
+
+        {item.type === 'video' && (
+          <div class="bento-media">
+            <video autoplay loop muted playsinline poster={item.src}>
+              <source src={item.src} type="video/mp4" />
+            </video>
+            <div class="media-overlay">
+              {item.title && <h4>{item.title}</h4>}
+            </div>
+          </div>
+        )}
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .bento-section {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--color-light);
+    overflow: hidden;
+    padding: 0.5rem; /* Small padding from screen edges */
+    box-sizing: border-box;
+  }
+
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 0.5rem;
+    width: 100%;
+    height: 100%;
+  }
+
+  .bento-item {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  }
+
+  .bento-item:hover {
+    transform: scale(1.005);
+    z-index: 2;
+  }
+
+  /* Content Styles */
+  .bento-content {
+    padding: 2rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .text-content h3 {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(1.5rem, 4vw, 3rem);
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .text-content p {
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    line-height: 1.4;
+    opacity: 0.9;
+  }
+
+  /* Media Styles */
+  .bento-media {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .bento-media img,
+  .bento-media video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .media-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%);
+    color: var(--color-light);
+  }
+
+  .media-overlay h4 {
+    font-family: 'Anton', sans-serif;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .bento-section {
+      height: 100vh;
+      padding: 0.35rem;
+    }
+
+    .bento-grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(6, 1fr);
+      gap: 0.35rem;
+    }
+
+    .text-content {
+      padding: 1rem;
+    }
+
+    .bento-item {
+        border-radius: 8px;
+    }
+  }
+
+  @media (max-height: 600px) {
+    .bento-section {
+        height: auto;
+        min-height: 100vh;
+    }
+  }
+</style>
+

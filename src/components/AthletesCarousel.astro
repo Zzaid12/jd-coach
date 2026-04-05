@@ -1,0 +1,281 @@
+---
+const images = [
+  { src: "/fotos%20jugadores/Ami%201.png", title: "Aminata" },
+  { src: "/fotos%20jugadores/Barni%201.jpeg", title: "Barni" },
+  { src: "/fotos%20jugadores/Espín%202.png", title: "Espín" },
+  { src: "/fotos%20jugadores/Hansel%201.png", title: "Hansel" },
+  { src: "/fotos%20jugadores/Mario%20Lorenzo.png", title: "Mario Lorenzo" },
+  { src: "/fotos%20jugadores/Paul%201.jpeg", title: "Paul" },
+  { src: "/fotos%20jugadores/Sara%201.jpeg", title: "Sara" },
+  { src: "/fotos%20jugadores/Zurita.png", title: "Zurita" }
+];
+---
+
+<section class="carousel-section">
+  <div class="carousel-title-container">
+    <h2 class="c-title">
+      Algunos jugadores <br/>
+      con los que he trabajado
+    </h2>
+    <div class="c-line"></div>
+  </div>
+  <div class="slider" id="athletes-carousel-slider" data-images={JSON.stringify(images)}>
+    <!-- slides created dynamically -->
+    <p id="slide-title"></p>
+  </div>
+</section>
+
+<style>
+  .carousel-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--color-light);
+    color: var(--color-dark);
+    overflow: hidden;
+  }
+
+  .carousel-title-container {
+    position: absolute;
+    top: 15vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
+    max-width: 1200px;
+    text-align: center;
+    z-index: 1000;
+    pointer-events: none;
+  }
+
+  .c-title {
+    font-size: clamp(2rem, 6vw, 5rem);
+    line-height: 1;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    opacity: 0;
+    transform: translateY(30px);
+    color: var(--color-dark);
+    text-transform: uppercase;
+  }
+
+  .c-line {
+    width: 0;
+    height: 3px;
+    background-color: var(--color-primary);
+    margin: 1.5rem auto 0;
+  }
+
+  .slider {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--color-light);
+  }
+
+  :global(.slide) {
+    position: absolute;
+    will-change: transform, width, height;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  }
+
+  :global(.slide img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  :global(p#slide-title) {
+    position: absolute;
+    bottom: 8svh;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: 400;
+    font-size: clamp(2.2rem, 6vw, 4.5rem);
+    color: var(--color-primary);
+    text-transform: uppercase;
+    z-index: 1000;
+    letter-spacing: 0.05em;
+    font-family: 'Anton', sans-serif;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  }
+
+  @media (max-width: 768px) {
+    .carousel-title-container {
+      top: 10vh;
+    }
+  }
+</style>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  
+  gsap.registerPlugin(ScrollTrigger);
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const sliderContainer = document.getElementById("athletes-carousel-slider");
+    if (!sliderContainer) return;
+    
+    const titleDisplay = document.getElementById("slide-title");
+    const imagesData = JSON.parse(sliderContainer.getAttribute("data-images") || "[]");
+
+    // Responsive constants
+    let windowWidth = window.innerWidth;
+    let windowHeight = window.innerHeight;
+    let isMobile = windowWidth < 768;
+
+    let SLIDE_WIDTH = isMobile ? 180 : 250;
+    let SLIDE_HEIGHT = isMobile ? 250 : 350;
+    let SLIDE_GAP = isMobile ? 100 : 130;
+    let SLIDE_COUNT = imagesData.length;
+    let ARC_DEPTH = isMobile ? 120 : 180;
+    let CENTER_LIFT = isMobile ? 60 : 100;
+    let SCROLL_LERP = 0.05;
+    let arcBaselineY = isMobile ? windowHeight * 0.55 : windowHeight * 0.65;
+
+    // Generate DOM
+    imagesData.forEach((imgObj) => {
+      const slideEl = document.createElement("div");
+      slideEl.classList.add("slide");
+
+      const imgEl = document.createElement("img");
+      imgEl.src = imgObj.src;
+      imgEl.alt = imgObj.title;
+      slideEl.appendChild(imgEl);
+
+      sliderContainer.appendChild(slideEl);
+    });
+
+    const slideElements = gsap.utils.toArray(sliderContainer.querySelectorAll(".slide"));
+    let trackWidth = SLIDE_COUNT * SLIDE_GAP;
+    let windowCenterX = windowWidth / 2;
+
+    function computeSlideTransform(slideIndex, scrollOffset) {
+      let wrappedOffsetX = (((slideIndex * SLIDE_GAP - scrollOffset) % trackWidth) + trackWidth) % trackWidth;
+      if (wrappedOffsetX > trackWidth / 2) wrappedOffsetX -= trackWidth;
+
+      const slideCenterX = windowCenterX + wrappedOffsetX;
+      const normalizedDist = (slideCenterX - windowCenterX) / (windowWidth * 0.5);
+      const absDist = Math.min(Math.abs(normalizedDist), 1.25);
+
+      const scaleFactor = Math.max(1 - absDist * (isMobile ? 0.6 : 0.7), isMobile ? 0.5 : 0.45);
+      const scaledWidth = SLIDE_WIDTH * scaleFactor;
+      const scaledHeight = SLIDE_HEIGHT * scaleFactor;
+
+      const clampedDist = Math.min(absDist, 1);
+      const arcDropY = (1 - Math.cos(clampedDist * Math.PI)) * 0.5 * ARC_DEPTH;
+      const centerLiftY = Math.max(1 - absDist * 2, 0) * CENTER_LIFT;
+
+      return {
+        x: slideCenterX - scaledWidth / 2,
+        y: arcBaselineY - scaledHeight / 2 + arcDropY - centerLiftY,
+        width: scaledWidth,
+        height: scaledHeight,
+        zIndex: Math.round((1 - absDist) * 100),
+        distanceFromCenter: Math.abs(wrappedOffsetX),
+      };
+    }
+
+    function layoutSlides(scrollOffset) {
+      slideElements.forEach((slideEl, i) => {
+        const { x, y, width, height, zIndex } = computeSlideTransform(i, scrollOffset);
+        gsap.set(slideEl, { x, y, width, height, zIndex });
+      });
+    }
+
+    let scrollTarget = 0;
+    let scrollCurrent = 0;
+
+    ScrollTrigger.create({
+      trigger: ".carousel-section",
+      start: "top top",
+      end: "+=3000",
+      pin: true,
+      onUpdate: (self) => {
+        scrollTarget = self.progress * trackWidth * 0.9; 
+      }
+    });
+
+    gsap.to('.c-title', {
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: '.carousel-section',
+        start: 'top 70%',
+      }
+    });
+
+    gsap.to('.c-line', {
+      width: '120px',
+      duration: 1.5,
+      ease: "power2.inOut",
+      scrollTrigger: {
+        trigger: '.carousel-section',
+        start: 'top 70%',
+      }
+    });
+
+    let activeSlideIndex = -1;
+
+    function syncActiveTitle(scrollOffset) {
+      let closestIndex = 0;
+      let closestDist = Infinity;
+
+      slideElements.forEach((_, i) => {
+        const { distanceFromCenter } = computeSlideTransform(i, scrollOffset);
+        if (distanceFromCenter < closestDist) {
+          closestDist = distanceFromCenter;
+          closestIndex = i;
+        }
+      });
+
+      if (closestIndex !== activeSlideIndex && titleDisplay) {
+        activeSlideIndex = closestIndex;
+        gsap.to(titleDisplay, {
+          opacity: 0,
+          duration: 0.2,
+          onComplete: () => {
+            titleDisplay.innerHTML = imagesData[closestIndex].title;
+            gsap.to(titleDisplay, { opacity: 1, duration: 0.2 });
+          }
+        });
+      }
+    }
+
+    function animate() {
+      scrollCurrent += (scrollTarget - scrollCurrent) * SCROLL_LERP;
+      layoutSlides(scrollCurrent);
+      syncActiveTitle(scrollCurrent);
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    window.addEventListener("resize", () => {
+      windowWidth = window.innerWidth;
+      windowHeight = window.innerHeight;
+      windowCenterX = windowWidth / 2;
+      isMobile = windowWidth < 768;
+
+      SLIDE_WIDTH = isMobile ? 180 : 250;
+      SLIDE_HEIGHT = isMobile ? 250 : 350;
+      SLIDE_GAP = isMobile ? 100 : 130;
+      trackWidth = SLIDE_COUNT * SLIDE_GAP;
+      ARC_DEPTH = isMobile ? 120 : 180;
+      CENTER_LIFT = isMobile ? 60 : 100;
+      arcBaselineY = isMobile ? windowHeight * 0.55 : windowHeight * 0.65;
+      
+      layoutSlides(scrollCurrent);
+    });
+  });
+</script>
+t>
+
+
+

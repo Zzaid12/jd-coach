@@ -1,0 +1,196 @@
+---
+---
+
+<div class="preloader">
+  <div class="progress-bar"></div>
+  
+  <div class="preloader-images">
+    <div class="image-wrapper">
+      <img src="/foto1.png" alt="Preloader 1" />
+    </div>
+    <div class="image-wrapper">
+      <img src="/foto2.png" alt="Preloader 2" />
+    </div>
+    <div class="image-wrapper">
+      <img src="/foto3.png" alt="Preloader 3" />
+    </div>
+  </div>
+
+  <div class="preloader-header">
+    <img src="/logo.png" alt="JD Coach Logo" class="logo" />
+  </div>
+</div>
+
+<script>
+  import { gsap } from "gsap";
+  import { CustomEase } from "gsap/CustomEase";
+
+  gsap.registerPlugin(CustomEase);
+
+  // Custom easing
+  CustomEase.create("hop", "M0,0 C0.29,0 0.348,0.05 0.422,0.134 0.494,0.217 0.484,0.355 0.5,0.5 0.518,0.662 0.515,0.793 0.596,0.876 0.701,0.983 0.72,1 1,1");
+
+  // Wait for DOM
+  window.addEventListener('DOMContentLoaded', () => {
+    const preloader = document.querySelector('.preloader');
+    const hasVisited = sessionStorage.getItem('jd-visited');
+
+    if (hasVisited && preloader) {
+      preloader.style.display = 'none';
+      return;
+    }
+
+    const progressBar = document.querySelector('.progress-bar');
+    const imageWrappers = document.querySelectorAll('.image-wrapper');
+    const images = document.querySelectorAll('.preloader-images img');
+    const preloaderHeader = document.querySelector('.preloader-header');
+
+    // Set initial states
+    gsap.set(progressBar, { scaleX: 0, transformOrigin: "left" });
+    gsap.set(imageWrappers, { clipPath: "inset(100% 0% 0% 0%)" });
+    gsap.set(images, { scale: 1.3 });
+    gsap.set(preloaderHeader, { opacity: 0 });
+
+    // Create timeline
+    const tl = gsap.timeline({ delay: 0.3 });
+
+    // 1. Progress bar fills
+    tl.to(progressBar, {
+      scaleX: 1,
+      duration: 1.5,
+      ease: "power2.inOut"
+    });
+
+    // 2. Progress bar reverses
+    tl.to(progressBar, {
+      scaleX: 0,
+      transformOrigin: "right",
+      duration: 0.6,
+      ease: "power2.inOut"
+    });
+
+    // 3. Images reveal one by one (slower)
+    imageWrappers.forEach((wrapper, index) => {
+      tl.to(wrapper, {
+        clipPath: "inset(0% 0% 0% 0%)",
+        duration: 1,
+        ease: "hop"
+      }, index === 0 ? "-=0.2" : "-=0.15");
+
+      tl.to(images[index], {
+        scale: 1,
+        duration: 1,
+        ease: "hop"
+      }, "<");
+    });
+
+    // 4. Show header text
+    tl.to(preloaderHeader, {
+      opacity: 1,
+      duration: 0.4,
+      ease: "power2.out"
+    }, "-=0.3");
+
+    // 5. Hold for a moment
+    tl.to({}, { duration: 0.5 });
+
+    // 6. Hide images
+    tl.to(imageWrappers, {
+      clipPath: "inset(0% 0% 100% 0%)",
+      duration: 0.5,
+      ease: "power2.inOut",
+      stagger: 0.08
+    });
+
+    // 7. Scale and fade out header (faster)
+    tl.to(preloaderHeader, {
+      opacity: 0,
+      scale: 0.85,
+      duration: 0.4,
+      ease: "power2.inOut"
+    }, "-=0.2");
+
+    // 8. Remove preloader with clip-path (faster)
+    tl.to(preloader, {
+      clipPath: "inset(0% 0% 100% 0%)",
+      duration: 0.8,
+      ease: "power2.inOut",
+      onComplete: () => {
+        preloader.style.display = 'none';
+        // Mark as visited for the REST of the session
+        sessionStorage.setItem('jd-visited', 'true');
+      }
+    }, "-=0.2");
+  });
+</script>
+
+<style>
+  .preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--color-dark);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--color-primary);
+  }
+
+  .preloader-images {
+    position: relative;
+    width: 400px;
+    height: 400px;
+  }
+
+  .image-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .preloader-images img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .preloader-header {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+  }
+
+  .preloader-header .logo {
+    width: 300px;
+    height: auto;
+    filter: brightness(0) invert(1); /* Make logo white */
+    mix-blend-mode: difference;
+  }
+
+  @media (max-width: 768px) {
+    .preloader-images {
+      width: 300px;
+      height: 300px;
+    }
+
+    .preloader-header .logo {
+      width: 200px;
+    }
+  }
+</style>

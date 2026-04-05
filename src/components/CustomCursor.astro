@@ -1,0 +1,102 @@
+---
+---
+
+<div class="cursor-wrapper">
+  <div class="cursor-dot"></div>
+  <div class="cursor-marquee">
+    <div class="marquee-inner">
+      <span>VIEW PROJECT — VIEW PROJECT — VIEW PROJECT — </span>
+      <span>VIEW PROJECT — VIEW PROJECT — VIEW PROJECT — </span>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { gsap } from "gsap";
+
+  const cursorWrapper = document.querySelector('.cursor-wrapper');
+  const cursorDot = document.querySelector('.cursor-dot');
+  const cursorMarquee = document.querySelector('.cursor-marquee');
+
+  // Initial state
+  gsap.set(cursorWrapper, { xPercent: -50, yPercent: -50 });
+  gsap.set(cursorMarquee, { scale: 0, opacity: 0 });
+
+  // Move cursor
+  window.addEventListener('mousemove', (e) => {
+    gsap.to(cursorWrapper, {
+      x: e.clientX,
+      y: e.clientY,
+      duration: 0.1,
+      ease: "power2.out"
+    });
+  });
+
+  // Hover effects
+  const projectLinks = document.querySelectorAll('.project-item');
+
+  projectLinks.forEach(link => {
+    link.addEventListener('mouseenter', () => {
+      gsap.to(cursorDot, { scale: 0, duration: 0.2 });
+      gsap.to(cursorMarquee, { scale: 1, opacity: 1, duration: 0.3 });
+    });
+
+    link.addEventListener('mouseleave', () => {
+      gsap.to(cursorDot, { scale: 1, duration: 0.2 });
+      gsap.to(cursorMarquee, { scale: 0, opacity: 0, duration: 0.3 });
+    });
+  });
+
+  // Marquee animation
+  gsap.to(".marquee-inner", {
+    xPercent: -50,
+    repeat: -1,
+    duration: 5,
+    ease: "linear"
+  });
+</script>
+
+<style>
+  .cursor-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference;
+  }
+
+  .cursor-dot {
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 50%;
+  }
+
+  .cursor-marquee {
+    width: 120px;
+    height: 120px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: absolute;
+    top: -60px; /* Center relative to wrapper */
+    left: -60px;
+    color: black;
+  }
+
+  .marquee-inner {
+    white-space: nowrap;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    display: flex;
+  }
+  
+  .marquee-inner span {
+    padding-right: 10px;
+  }
+</style>

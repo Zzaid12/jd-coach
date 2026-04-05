@@ -1,0 +1,249 @@
+---
+const videoPath = "/wetransfer_videos-jotade_2026-03-18_0829/";
+const works = [
+  {
+    title: "MÉTODO JOTADE",
+    subtitle: "Mira como trabajo",
+    desc: "Cada sesión es una oportunidad para redefinir tus límites. No solo entrenamos; analizamos cada vector de fuerza y cada micro-movimiento para asegurar que tu evolución sea constante y segura.",
+    video: videoPath + "copy_4B00EAB0-D87D-4F60-87D3-D69F4AD154B0.mov.mp4"
+  },
+  {
+    title: "ALTO RENDIMIENTO",
+    subtitle: "Potencia elástica",
+    desc: "Trabajamos con atletas de élite donde el detalle marca la diferencia. Optimizamos la transferencia de fuerza al gesto deportivo real.",
+    video: videoPath + "VID-20250915-WA0007.mp4"
+  },
+  {
+    title: "TÉCNICA PURA",
+    subtitle: "Prevención y fuerza",
+    desc: "La biomecánica es el pilar de nuestro éxito. Entender el por qué de cada ejercicio es lo que multiplica tus resultados.",
+    video: videoPath + "VID-20250915-WA0038.mp4"
+  }
+];
+---
+
+<section class="work-section">
+  <div class="work-container">
+    {works.map((item, index) => (
+      <div class={`work-block ${index % 2 !== 0 ? 'reverse' : ''}`}>
+        <div class="work-video-container">
+          <video 
+            src={item.video} 
+            autoplay 
+            muted 
+            loop 
+            playsinline 
+            class="work-video"
+          ></video>
+          <div class="video-overlay"></div>
+        </div>
+        
+        <div class="work-content-container">
+          <div class="work-text-box">
+            <span class="work-subtitle">{item.subtitle}</span>
+            <h2 class="work-title">{item.title}</h2>
+            <p class="work-desc">{item.desc}</p>
+            <div class="work-line"></div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .work-section {
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .work-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .work-block {
+    position: relative;
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    align-items: center;
+  }
+
+  /* Video half */
+  .work-video-container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60%;
+    height: 80vh;
+    right: 5%;
+    z-index: 1;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .reverse .work-video-container {
+    right: auto;
+    left: 5%;
+  }
+
+  .work-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.8) contrast(1.1);
+  }
+
+  .video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-dark) 0%, transparent 20%, transparent 80%, var(--color-dark) 100%);
+  }
+
+  /* Content half */
+  .work-content-container {
+    position: relative;
+    width: 50%;
+    padding: 10% 5%;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .reverse .work-content-container {
+    margin-left: 50%;
+  }
+
+  .work-text-box {
+    background: rgba(26, 26, 26, 0.85); /* Slightly transparent to see video behind */
+    backdrop-filter: blur(10px);
+    padding: 4rem;
+    pointer-events: auto;
+    border-left: 2px solid var(--color-primary);
+    transform: translateX(0);
+  }
+
+  .reverse .work-text-box {
+    border-left: none;
+    border-right: 2px solid var(--color-primary);
+    text-align: right;
+  }
+
+  .work-subtitle {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .work-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 2rem;
+    line-height: 1;
+  }
+
+  .work-desc {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2rem;
+  }
+
+  .work-line {
+    width: 60px;
+    height: 4px;
+    background-color: var(--color-primary);
+  }
+
+  .reverse .work-line {
+    margin-left: auto;
+  }
+
+  @media (max-width: 1024px) {
+    .work-block {
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 4rem 0;
+      height: auto;
+      min-height: auto;
+    }
+
+    .work-video-container {
+      position: relative;
+      top: 0;
+      transform: none;
+      width: 100%;
+      height: 50vh;
+      right: 0;
+      left: 0;
+      margin-bottom: -4rem; /* Overlap effect */
+    }
+
+    .work-content-container {
+      width: 90%;
+      padding: 0;
+      margin: 0 auto !important;
+    }
+
+    .work-text-box {
+      padding: 3rem 2rem;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const blocks = document.querySelectorAll('.work-block');
+
+    blocks.forEach((block) => {
+      const video = block.querySelector('.work-video-container');
+      const text = block.querySelector('.work-text-box');
+
+      // Video Entrance Parallax
+      gsap.fromTo(video, 
+        { y: 100, opacity: 0, scale: 0.95 },
+        { 
+          y: 0, 
+          opacity: 1, 
+          scale: 1,
+          scrollTrigger: {
+            trigger: block,
+            start: "top 80%",
+            end: "top 20%",
+            scrub: 1
+          }
+        }
+      );
+
+      // Text Overlap Slide
+      gsap.fromTo(text, 
+        { x: block.classList.contains('reverse') ? 100 : -100, opacity: 0 },
+        { 
+          x: 0, 
+          opacity: 1, 
+          scrollTrigger: {
+            trigger: block,
+            start: "top 60%",
+            end: "top 30%",
+            scrub: 1
+          }
+        }
+      );
+    });
+  });
+</script>

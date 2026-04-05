@@ -1,0 +1,215 @@
+---
+---
+
+<section class="about-section">
+  <div class="about-container">
+    <div class="about-badge">
+      <span>Sobre mí</span>
+    </div>
+    
+    <h2 class="about-title">
+      Transforma tu cuerpo y mejora tu rendimiento con un entrenamiento adaptado a ti
+    </h2>
+    
+    <p class="about-text">
+      En Jotade Coach diseñamos programas de entrenamiento personalizados para que alcances tus objetivos, ya sea mejorar tu condición física, potenciar tu rendimiento deportivo o cuidar tu salud. Con un enfoque basado en la ciencia y la experiencia, ofrecemos entrenamiento personal en Madrid y entrenamiento online, adaptándonos a cada nivel y necesidad.
+    </p>
+
+    <div class="about-stats">
+      <div class="stat-item">
+        <div class="stat-number">500+</div>
+        <div class="stat-label">Clientes</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">10+</div>
+        <div class="stat-label">Años experiencia</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Personalizado</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const badge = document.querySelector('.about-badge');
+    const title = document.querySelector('.about-title');
+    const text = document.querySelector('.about-text');
+    const stats = document.querySelectorAll('.stat-item');
+
+    // Set initial states
+    gsap.set([badge, title, text], { 
+      opacity: 0, 
+      y: 60 
+    });
+    
+    gsap.set(stats, { 
+      opacity: 0, 
+      scale: 0.8 
+    });
+
+    // Create scroll-triggered timeline
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.about-section',
+        start: 'top 70%',
+        end: 'bottom 20%',
+        toggleActions: 'play none none none'
+      }
+    });
+
+    tl.to(badge, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: 'power3.out'
+    })
+    .to(title, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out'
+    }, '-=0.4')
+    .to(text, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out'
+    }, '-=0.6')
+    .to(stats, {
+      opacity: 1,
+      scale: 1,
+      duration: 0.8,
+      stagger: 0.15,
+      ease: 'back.out(1.4)'
+    }, '-=0.4');
+
+    // Animate stat numbers
+    stats.forEach((stat) => {
+      const numberEl = stat.querySelector('.stat-number');
+      const text = numberEl.textContent;
+      const hasPlus = text.includes('+');
+      const hasPercent = text.includes('%');
+      const number = parseInt(text);
+
+      ScrollTrigger.create({
+        trigger: stat,
+        start: 'top 80%',
+        onEnter: () => {
+          gsap.from({ value: 0 }, {
+            value: number,
+            duration: 2,
+            ease: 'power2.out',
+            onUpdate: function() {
+              const current = Math.floor(this.targets()[0].value);
+              numberEl.textContent = current + (hasPlus ? '+' : '') + (hasPercent ? '%' : '');
+            }
+          });
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .about-section {
+    padding: 10rem 2rem;
+    background: var(--color-dark);
+    color: var(--color-light);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -10%;
+    width: 40%;
+    height: 100%;
+    background: var(--color-primary);
+    opacity: 0.05;
+    transform: skewX(-15deg);
+  }
+
+  .about-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .about-badge {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    border-radius: 50px;
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .about-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 2rem;
+    letter-spacing: -0.01em;
+  }
+
+  .about-text {
+    font-size: clamp(1.125rem, 2vw, 1.25rem);
+    line-height: 1.8;
+    opacity: 0.85;
+    font-weight: 400;
+    text-transform: none;
+    margin-bottom: 4rem;
+    max-width: 800px;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 3rem;
+    margin-top: 4rem;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-number {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 900;
+    color: var(--color-primary);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 768px) {
+    .about-section {
+      padding: 6rem 1.5rem;
+    }
+
+    .about-stats {
+      gap: 2rem;
+    }
+  }
+</style>

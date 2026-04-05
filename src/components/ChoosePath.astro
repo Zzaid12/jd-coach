@@ -1,0 +1,80 @@
+---
+---
+
+<section class="choose-path-section">
+  <div class="choose-path-content">
+    <h2>Elige tu camino</h2>
+    <div class="choose-path-buttons">
+      <a href="/athletes" class="path-btn">JD Athletes</a>
+      <a href="/performers" class="path-btn">JD Performers</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .choose-path-section {
+    background-color: var(--color-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10rem 2rem;
+    width: 100%;
+  }
+
+  .choose-path-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .choose-path-content h2 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    margin-bottom: 3rem;
+    font-weight: 400;
+    letter-spacing: -0.05rem;
+    color: var(--color-dark);
+    text-transform: uppercase;
+    font-family: 'Anton', sans-serif;
+  }
+
+  .choose-path-buttons {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .path-btn {
+    text-decoration: none;
+    color: var(--color-primary);
+    background: transparent;
+    border: 2px solid var(--color-primary);
+    padding: 1.5rem 4rem;
+    border-radius: 60px;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+  }
+
+  .path-btn:hover {
+    background: var(--color-primary);
+    color: var(--color-light);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(240, 105, 45, 0.2);
+  }
+
+  @media (max-width: 768px) {
+    .choose-path-buttons {
+      gap: 1.5rem;
+    }
+    
+    .path-btn {
+      padding: 1.2rem 3rem;
+      font-size: 1.2rem;
+    }
+  }
+</style>

@@ -1,0 +1,321 @@
+---
+const testimonials = [
+  {
+    name: "Carlos Rodríguez",
+    role: "Atleta de Alto Rendimiento",
+    text: "Trabajar con JD Coach ha sido un antes y un después en mi carrera. Lo que más valoro no es solo la planificación técnica, sino la capacidad que tiene para entender el momento psicológico del atleta. Sus sesiones me han permitido no solo alcanzar mis récords personales, sino mantenerme libre de lesiones durante dos temporadas completas. La integración de la app Harbiz facilita muchísimo el seguimiento diario, permitiéndome ver mi progresión en tiempo real.",
+    rating: 5
+  },
+  {
+    name: "Elena Martínez",
+    role: "Entrenamiento Personal Online",
+    text: "Buscaba a alguien que me ayudara a cambiar mis hábitos desde casa y con JD encontré el método perfecto. Las rutinas son variadas, desafiantes pero siempre seguras. Me encanta que cada ejercicio viene con su vídeo explicativo, lo que me da la confianza de estar haciendo todo correctamente. He perdido 8kg en 4 meses, pero lo más importante es que me siento con una energía que no tenía desde hace años. Es mucho más que un entrenador, es un mentor que se preocupa por tu bienestar integral.",
+    rating: 5
+  },
+  {
+    name: "Jordi S.",
+    role: "Preparación Física Oposiciones",
+    text: "Mi objetivo era muy específico: las pruebas físicas de bombero. JD Coach diseñó un bloque de fuerza y potencia que me permitió superar con creces las marcas mínimas en apenas 6 meses. Su conocimiento sobre biomecánica es impresionante; corrigió vicios posturales que arrastraba desde hacía años y que me limitaban en el press de banca y las dominadas. Si quieres resultados reales y no solo 'entrenar por entrenar', este es el sitio.",
+    rating: 5
+  },
+  {
+    name: "Miguel Ángel",
+    role: "Triatleta Amateur",
+    text: "Llevaba años estancado en mis tiempos de carrera. Con JD me di cuenta de que me faltaba un trabajo de fuerza específico que nunca había hecho. En solo una temporada he bajado 15 minutos mi marca en media maratón. Lo mejor es la flexibilidad y cómo adapta el plan a mi vida laboral.",
+    rating: 5
+  },
+  {
+    name: "Lucía M.",
+    role: "Crossfit & Performance",
+    text: "Como deportista de Crossfit, necesitaba mejorar mi eficiencia en movimientos gimnásticos. El enfoque de JD en la movilidad y la técnica de base me ha permitido desbloquear movimientos que creía imposibles para mí. Un profesional de 10.",
+    rating: 5
+  }
+];
+---
+
+<section class="testimonials-section">
+  <div class="testimonials-container">
+    <div class="testimonials-header">
+      <h2 class="t-title">No serás el primero <br/> ellos ya lo probaron</h2>
+      <div class="t-line"></div>
+    </div>
+
+    <div class="testimonials-list">
+      {testimonials.map((t, i) => (
+        <div class={`testimonial-card ${i >= 2 ? 'is-hidden' : ''}`} data-index={i}>
+          <div class="quote-icon">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12.5 12C9.5 12 7.5 14 7.5 17C7.5 20 9.5 22 12.5 22H14.5C14.5 25 12.5 27 10.5 28L11.5 30C15.5 28 17.5 25 17.5 20V15C17.5 13 16.5 12 14.5 12H12.5ZM27.5 12C24.5 12 22.5 14 22.5 17C22.5 20 24.5 22 27.5 22H29.5C29.5 25 27.5 27 25.5 28L26.5 30C30.5 28 32.5 25 32.5 20V15C32.5 13 31.5 12 29.5 12H27.5Z" fill="currentColor"/>
+            </svg>
+          </div>
+          <p class="testimonial-text">{t.text}</p>
+          <div class="testimonial-info">
+            <div class="info-divider"></div>
+            <h4 class="testimonial-name">{t.name}</h4>
+            <p class="testimonial-role">{t.role}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="testimonials-cta">
+      <button id="view-all-reviews" class="btn-view-more">
+        Ver más testimonios
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials-section {
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    padding: 10rem 2rem;
+    overflow: hidden;
+  }
+
+  .testimonials-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8rem;
+  }
+
+  .testimonials-header {
+    text-align: left;
+    position: relative;
+  }
+
+  .t-title {
+    font-size: clamp(3rem, 8vw, 6rem);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  .t-line {
+    width: 0;
+    height: 2px;
+    background-color: var(--color-primary);
+    margin-top: 1rem;
+  }
+
+  .testimonials-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15vh; /* Large gap between long reviews */
+  }
+
+  .testimonial-card {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 900px;
+    margin-left: auto; /* Aligned to the right for a dynamic composition */
+    opacity: 0;
+    transform: translateY(100px);
+  }
+
+  .testimonial-card[data-index="1"] {
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  .quote-icon {
+    color: var(--color-primary);
+    opacity: 0.5;
+  }
+
+  .testimonial-text {
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    line-height: 1.4;
+    font-weight: 300;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: none; /* Make it readable */
+  }
+
+  .testimonial-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .info-divider {
+    width: 60px;
+    height: 1px;
+    background-color: var(--color-primary);
+    margin-bottom: 1rem;
+  }
+
+  .testimonial-name {
+    font-size: 1.2rem;
+    letter-spacing: 0.05em;
+  }
+
+  .testimonial-role {
+    font-size: 0.9rem;
+    opacity: 0.6;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* Hidden state */
+  .testimonial-card.is-hidden {
+    display: none;
+    opacity: 0;
+  }
+
+  .testimonials-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: 4rem;
+  }
+
+  .btn-view-more {
+    background: transparent;
+    border: 1px solid var(--color-primary);
+    color: var(--color-light);
+    padding: 1.2rem 2.5rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+    font-family: 'Anton', sans-serif;
+  }
+
+  .btn-view-more:hover {
+    background: var(--color-primary);
+    color: var(--color-dark);
+  }
+
+  .btn-view-more svg {
+    transition: transform 0.3s ease;
+  }
+
+  .btn-view-more.is-active svg {
+    transform: rotate(180deg);
+  }
+
+  @media (max-width: 768px) {
+    .testimonials-section {
+      padding: 6rem 1.5rem;
+    }
+    
+    .testimonials-container {
+      gap: 4rem;
+    }
+
+    .testimonial-card {
+      margin: 0 !important;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  window.addEventListener('DOMContentLoaded', () => {
+    // Title animation
+    gsap.to('.t-title', {
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: '.testimonials-header',
+        start: 'top 80%',
+      }
+    });
+
+    gsap.to('.t-line', {
+      width: '100%',
+      duration: 1.5,
+      ease: "power2.inOut",
+      scrollTrigger: {
+        trigger: '.testimonials-header',
+        start: 'top 80%',
+      }
+    });
+
+    // Cards animations
+    const cards = document.querySelectorAll('.testimonial-card');
+    
+    cards.forEach((card) => {
+      gsap.to(card, {
+        opacity: 1,
+        y: 0,
+        duration: 1.5,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 85%',
+          end: 'top 20%',
+          scrub: 1, // Optional: makes it react to scroll
+          // toggleActions: "play none none reverse" 
+        }
+      });
+
+      // Subtle parallax for the text inside the card
+      const text = card.querySelector('.testimonial-text');
+      gsap.from(text, {
+        y: 30,
+        opacity: 0,
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 90%',
+          end: 'top 50%',
+          scrub: 2,
+        }
+      });
+    });
+
+    // Toggle hidden reviews
+    const viewMoreBtn = document.getElementById('view-all-reviews');
+    const hiddenCards = document.querySelectorAll('.testimonial-card.is-hidden');
+
+    if (viewMoreBtn) {
+      viewMoreBtn.addEventListener('click', () => {
+        const isShowing = viewMoreBtn.classList.contains('is-active');
+
+        if (!isShowing) {
+          // Show them
+          hiddenCards.forEach((card) => {
+            (card as HTMLElement).style.display = 'flex';
+            gsap.fromTo(card, 
+              { opacity: 0, y: 50 },
+              { opacity: 1, y: 0, duration: 1, ease: "power3.out" }
+            );
+          });
+          viewMoreBtn.innerHTML = `Ver menos <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform: rotate(180deg)"><path d="m6 9 6 6 6-6"/></svg>`;
+          viewMoreBtn.classList.add('is-active');
+        } else {
+          // Hide them (optional, or just leave them)
+          hiddenCards.forEach((card) => {
+            (card as HTMLElement).style.display = 'none';
+          });
+          viewMoreBtn.innerHTML = `Ver más testimonios <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>`;
+          viewMoreBtn.classList.remove('is-active');
+          
+          // Scroll back up to the header to avoid disorientation
+          document.querySelector('.testimonials-header')?.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // IMPORTANT: Refresh ScrollTrigger because the page height changed
+        setTimeout(() => {
+          ScrollTrigger.refresh();
+        }, 100);
+      });
+    }
+  });
+</script>

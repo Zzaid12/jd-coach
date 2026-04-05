@@ -1,0 +1,87 @@
+---
+import '../styles/global.css';
+import 'lenis/dist/lenis.css';
+import Navbar from '../components/Navbar.astro';
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="JD Coach - Transform your limits" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+	</head>
+	<body>
+    <Navbar />
+    <slot />
+
+    <script>
+      import Lenis from 'lenis';
+      import { gsap } from "gsap";
+      import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Initialize Lenis for ultra-smooth scrolling
+      const lenis = new Lenis({
+        duration: 1.2,           // Duración de la animación de scroll
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Easing suave
+        orientation: 'vertical', // Dirección del scroll
+        gestureOrientation: 'vertical',
+        smoothWheel: true,       // Suaviza el scroll con rueda del mouse
+        wheelMultiplier: 1,      // Multiplicador de velocidad de rueda
+        smoothTouch: false,      // Desactivado en touch para mejor rendimiento
+        touchMultiplier: 2,
+        infinite: false,
+      });
+
+      // Sincronizar Lenis con GSAP ScrollTrigger
+      lenis.on('scroll', ScrollTrigger.update);
+
+      gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+      });
+
+      gsap.ticker.lagSmoothing(0);
+
+      // Smooth scroll para enlaces internos
+      document.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        const link = target.closest('a[href^="#"]');
+        
+        if (link) {
+          e.preventDefault();
+          const href = link.getAttribute('href');
+          if (href && href !== '#') {
+            const targetElement = document.querySelector(href);
+            if (targetElement) {
+              lenis.scrollTo(targetElement, {
+                offset: 0,
+                duration: 1.5,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+              });
+            }
+          }
+        }
+      });
+
+      // Refresh ScrollTrigger después de cargar imágenes
+      window.addEventListener('load', () => {
+        ScrollTrigger.sort();
+        ScrollTrigger.refresh();
+      });
+    </script>
+	</body>
+</html>

@@ -1,0 +1,151 @@
+---
+---
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <h2 class="footer-logo-text">JD COACH</h2>
+        <p class="footer-tagline">Transforming limits into milestones.</p>
+      </div>
+      
+      <div class="footer-links-grid">
+        <div class="footer-col">
+          <h3>Navegación</h3>
+          <ul>
+            <li><a href="/">Inicio</a></li>
+            <li><a href="/athletes">JD Athletes</a></li>
+            <li><a href="/performers">JD Performers</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h3>Contacto</h3>
+          <ul>
+            <li><a href="mailto:jotadecoach@gmail.com">jotadecoach@gmail.com</a></li>
+            <li><a href="https://instagram.com/jotadecoach" target="_blank">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; {new Date().getFullYear()} JD COACH. Todos los derechos reservados.</p>
+      <div class="footer-legal-links">
+        <a href="#">Aviso Legal</a>
+        <a href="#">Privacidad</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    padding: 6rem 2rem 2rem;
+    position: relative;
+    z-index: 10;
+  }
+
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 4rem;
+    margin-bottom: 6rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-brand {
+    flex: 1;
+    min-width: 250px;
+  }
+
+  .footer-logo-text {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+    letter-spacing: -0.05em;
+  }
+
+  .footer-tagline {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    opacity: 0.6;
+    max-width: 300px;
+    line-height: 1.4;
+  }
+
+  .footer-links-grid {
+    display: flex;
+    gap: 6rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-col h3 {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 2rem;
+    color: rgba(255,255,255,0.4);
+    font-weight: 500;
+  }
+
+  .footer-col ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .footer-col a {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+    text-transform: none;
+    opacity: 0.8;
+  }
+
+  .footer-col a:hover {
+    color: var(--color-primary);
+    opacity: 1;
+  }
+
+  .footer-bottom {
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    opacity: 0.4;
+  }
+
+  .footer-legal-links {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .footer-legal-links a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .footer-top {
+      flex-direction: column;
+      gap: 3rem;
+    }
+    .footer-links-grid {
+      gap: 3rem;
+    }
+  }
+</style>

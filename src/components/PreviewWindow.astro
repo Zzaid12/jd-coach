@@ -1,0 +1,98 @@
+---
+---
+
+<div class="preview-window">
+  <div class="preview-inner">
+    <video 
+      id="preview-video" 
+      muted 
+      loop 
+      playsinline
+      src=""
+    ></video>
+  </div>
+</div>
+
+<script>
+  import { gsap } from "gsap";
+
+  const previewWindow = document.querySelector('.preview-window');
+  const video = document.getElementById('preview-video') as HTMLVideoElement;
+  const projectItems = document.querySelectorAll('.project-item');
+
+  // Initial state
+  gsap.set(previewWindow, { 
+    opacity: 0, 
+    scale: 0.8,
+    xPercent: -50,
+    yPercent: -50,
+    pointerEvents: "none"
+  });
+
+  // Move preview with cursor (but slower/laggy for effect)
+  window.addEventListener('mousemove', (e) => {
+    gsap.to(previewWindow, {
+      x: e.clientX,
+      y: e.clientY,
+      duration: 0.5, // More lag than cursor
+      ease: "power2.out"
+    });
+  });
+
+  projectItems.forEach(item => {
+    item.addEventListener('mouseenter', () => {
+      const videoSrc = item.getAttribute('data-video');
+      if (videoSrc && video) {
+        video.src = videoSrc;
+        video.play();
+        
+        gsap.to(previewWindow, {
+          opacity: 1,
+          scale: 1,
+          duration: 0.4,
+          ease: "power2.out"
+        });
+      }
+    });
+
+    item.addEventListener('mouseleave', () => {
+      gsap.to(previewWindow, {
+        opacity: 0,
+        scale: 0.8,
+        duration: 0.3,
+        ease: "power2.in"
+      });
+      
+      // Pause video after fade out to save resources
+      setTimeout(() => {
+        if (video) video.pause();
+      }, 300);
+    });
+  });
+</script>
+
+<style>
+  .preview-window {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 400px;
+    height: 250px;
+    z-index: 100; /* Behind cursor, above content */
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  }
+
+  .preview-inner {
+    width: 100%;
+    height: 100%;
+    background: #1a1a1a;
+  }
+
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>

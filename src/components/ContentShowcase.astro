@@ -1,0 +1,330 @@
+---
+interface ShowcaseItem {
+  title: string;
+  subtitle?: string;
+  description: string;
+  media: {
+    type: 'image' | 'video';
+    src: string;
+    poster?: string;
+  };
+  lightMode?: boolean;
+}
+
+interface Props {
+  items: ShowcaseItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<section class="showcase-section">
+  {items.map((item, index) => (
+    <div class={`showcase-row ${index % 2 !== 0 ? 'reverse' : ''} ${item.lightMode ? 'light' : 'dark'}`}>
+      <div class="showcase-number">
+        <span>{(index + 1).toString().padStart(2, '0')}</span>
+      </div>
+      
+      <div class="showcase-media">
+        <div class="media-mask">
+          <div class="media-container" data-speed="0.1">
+            {item.media.type === 'image' ? (
+              <img src={item.media.src} alt={item.title} loading="lazy" />
+            ) : (
+              <video autoplay loop muted playsinline poster={item.media.poster}>
+                <source src={item.media.src} type="video/mp4" />
+              </video>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div class="showcase-content">
+        <div class="content-card">
+          {item.subtitle && <span class="subtitle">{item.subtitle}</span>}
+          <h2 class="title">{item.title}</h2>
+          <div class="divider"></div>
+          <p class="description">{item.description}</p>
+        </div>
+      </div>
+    </div>
+  ))}
+</section>
+
+<style>
+  .showcase-section {
+    background: var(--color-dark);
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .showcase-row {
+    position: relative;
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .showcase-row.light {
+    background: var(--color-light);
+    color: var(--color-dark);
+  }
+
+  .showcase-row.light .title,
+  .showcase-row.light .description {
+    color: var(--color-dark);
+  }
+
+  .showcase-row.light .divider {
+    background: var(--color-dark);
+  }
+
+  .showcase-row.light .showcase-number {
+    color: rgba(0,0,0,0.05);
+  }
+
+  /* Number behind everything */
+  .showcase-number {
+    position: absolute;
+    left: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 25vw;
+    font-family: 'Anton', sans-serif;
+    color: rgba(255,255,255,0.03);
+    line-height: 1;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .reverse .showcase-number {
+    left: auto;
+    right: 5%;
+  }
+
+  /* Media Section */
+  .showcase-media {
+    width: 65%;
+    height: 80vh;
+    position: relative;
+    z-index: 1;
+    margin-left: 5%;
+  }
+
+  .reverse .showcase-media {
+    margin-left: 0;
+    margin-right: 5%;
+  }
+
+  .media-mask {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    clip-path: polygon(0 5%, 100% 0%, 100% 95%, 0% 100%);
+    transition: clip-path 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reverse .media-mask {
+    clip-path: polygon(0 0%, 100% 5%, 100% 100%, 0% 95%);
+  }
+
+  .media-container {
+    width: 100%;
+    height: 120%;
+    position: absolute;
+    top: -10%;
+  }
+
+  .media-container img,
+  .media-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .showcase-row:hover .media-container img,
+  .showcase-row:hover .media-container video {
+    transform: scale(1.1);
+  }
+
+  /* Content Section */
+  .showcase-content {
+    width: 45%;
+    position: absolute;
+    right: 5%;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .reverse .showcase-content {
+    right: auto;
+    left: 5%;
+  }
+
+  .content-card {
+    background: rgba(26, 26, 26, 0.8);
+    backdrop-filter: blur(20px);
+    padding: 5rem 4rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+    pointer-events: auto;
+    transform: translateY(0);
+    transition: transform 0.5s ease;
+  }
+
+  .light .content-card {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+  }
+
+  .showcase-row:hover .content-card {
+    transform: translateY(-10px);
+  }
+
+  .subtitle {
+    display: block;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 2rem;
+    color: var(--color-light);
+  }
+
+  .divider {
+    width: 60px;
+    height: 3px;
+    background: var(--color-primary);
+    margin-bottom: 2rem;
+  }
+
+  .description {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.7);
+    font-weight: 400;
+  }
+
+  .light .description {
+    color: rgba(0,0,0,0.7);
+  }
+
+  /* Reverse layout */
+  .reverse {
+    flex-direction: row-reverse;
+  }
+
+  @media (max-width: 1024px) {
+    .showcase-row {
+      flex-direction: column !important;
+      height: auto;
+      min-height: auto;
+      padding: 4rem 1rem;
+    }
+
+    .showcase-media {
+      width: 100%;
+      height: 50vh;
+      margin: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+    }
+
+    .showcase-content {
+      width: calc(100% - 2rem);
+      position: relative;
+      right: auto;
+      left: auto;
+      margin-top: -3rem; /* Overlap on mobile */
+      margin-bottom: 2rem;
+    }
+
+    .content-card {
+      padding: 3rem 2rem;
+    }
+
+    .showcase-number {
+      top: 2rem;
+      font-size: 50vw;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const rows = document.querySelectorAll('.showcase-row');
+
+    rows.forEach((row) => {
+      const media = row.querySelector('.media-container');
+      const card = row.querySelector('.content-card');
+      const number = row.querySelector('.showcase-number');
+
+      // Parallax on media
+      gsap.to(media, {
+        y: '10%',
+        ease: "none",
+        scrollTrigger: {
+          trigger: row,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+
+      // Card offset movement
+      gsap.to(card, {
+        y: -40,
+        ease: "none",
+        scrollTrigger: {
+          trigger: row,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+
+      // Reveal animations
+      gsap.from(card, {
+        x: row.classList.contains('reverse') ? -100 : 100,
+        opacity: 0,
+        duration: 1.5,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: row,
+          start: "top 80%",
+        }
+      });
+
+      gsap.from(number, {
+        opacity: 0,
+        scale: 0.8,
+        duration: 2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: row,
+          start: "top 80%",
+        }
+      });
+    });
+  });
+</script>

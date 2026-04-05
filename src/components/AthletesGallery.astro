@@ -1,0 +1,384 @@
+---
+const images = [
+  "/wetransfer_fotos-jugadores_2026-03-17_1456/Ami%201.png",
+  "/wetransfer_fotos-jugadores_2026-03-17_1456/Ami%202.png",
+  "/wetransfer_fotos-jugadores_2026-03-17_1456/Ami%203.png",
+  "/wetransfer_fotos-jugadores_2026-03-17_1456/Barni%201.jpeg",
+  "/wetransfer_fotos-jugadores_2026-03-17_1456/Barni%202.jpeg",
+  "/wetransfer_fotos-jugadores_2026-03-17_1456/Espín%201.jpg",
+  "/wetransfer_fotos-jugadores_2026-03-17_1456/Espín%202.png",
+  "/wetransfer_fotos-jugadores_2026-03-17_1456/Hansel%201.png",
+  "/wetransfer_fotos-jugadores_2026-03-17_1456/Hansel%202.png",
+  "/wetransfer_fotos-jugadores_2026-03-17_1456/Mario%20Lorenzo.png",
+  "/wetransfer_fotos-jugadores_2026-03-17_1456/Paul%201.jpeg",
+  "/wetransfer_fotos-jugadores_2026-03-17_1456/Paul%202.jpeg",
+  "/wetransfer_fotos-jugadores_2026-03-17_1456/Sara%201.jpeg",
+  "/wetransfer_fotos-jugadores_2026-03-17_1456/Zurita.png"
+];
+
+const col1 = images.slice(0, 4);
+const col2 = images.slice(4, 7);
+const col3 = images.slice(7, 10);
+const col4 = images.slice(10, 14);
+---
+
+<div class="gallery-wrapper">
+  <!-- Hero Section -->
+  <section class="gallery-hero">
+    <div class="g-hero-img">
+      <img src={images[5]} alt="Atleta de fondo" />
+    </div>
+    <div class="g-hero-header">
+      <h1>Trayectoria compartida con los mejores</h1>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="gallery-about">
+    <div class="g-about-images">
+      <div class="g-about-imgs-col" id="g-about-imgs-col-1">
+        {col1.map(src => (
+          <div class="img">
+            <img src={src} alt="Atleta" loading="lazy" />
+          </div>
+        ))}
+      </div>
+      <div class="g-about-imgs-col" id="g-about-imgs-col-2">
+        {col2.map(src => (
+          <div class="img">
+            <img src={src} alt="Atleta" loading="lazy" />
+          </div>
+        ))}
+      </div>
+      <div class="g-about-imgs-col" id="g-about-imgs-col-3">
+        {col3.map(src => (
+          <div class="img">
+            <img src={src} alt="Atleta" loading="lazy" />
+          </div>
+        ))}
+      </div>
+      <div class="g-about-imgs-col" id="g-about-imgs-col-4">
+        {col4.map(src => (
+          <div class="img">
+            <img src={src} alt="Atleta" loading="lazy" />
+          </div>
+        ))}
+      </div>
+    </div>
+    <div class="g-about-header">
+      <h3>Nuestros Atletas</h3>
+    </div>
+  </section>
+
+  <!-- Espacio para la siguiente sección (Caminos) -->
+  <section class="gallery-outro">
+    <div class="g-outro-content">
+      <h2>Elige tu camino</h2>
+      <div class="g-outro-buttons">
+        <a href="/athletes" class="path-btn">JD Athletes</a>
+        <a href="/performers" class="path-btn">JD Performers</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { SplitText } from "gsap/SplitText";
+
+  gsap.registerPlugin(ScrollTrigger, SplitText);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".gallery-hero",
+        start: "top top",
+        end: () => "+=" + (window.innerHeight * 1.5) + "px",
+        pin: true,
+        pinSpacing: false,
+        scrub: 1
+      }
+    });
+
+    // COMIENZAN A LA VEZ (posición 0): Sube el título y la foto principal hace zoom out
+    tl.to(".g-hero-header", { 
+      yPercent: -120, 
+      ease: "power1.inOut", 
+      duration: 1 
+    }, 0);
+
+    tl.fromTo(".g-hero-img", {
+      width: window.innerWidth,
+      height: window.innerHeight,
+      borderRadius: 0
+    }, {
+      width: 200,   // Adaptado a tu nuevo tamaño
+      height: 250,  // Adaptado a tu nuevo tamaño
+      borderRadius: 12,
+      ease: "power2.inOut",
+      duration: 1
+    }, 0);
+
+    const aboutImgCols = [
+      { id: "#g-about-imgs-col-1", y: -500 },
+      { id: "#g-about-imgs-col-2", y: -250 },
+      { id: "#g-about-imgs-col-3", y: -250 },
+      { id: "#g-about-imgs-col-4", y: -500 },
+    ];
+
+    aboutImgCols.forEach(({ id, y }) => {
+      gsap.to(id, {
+        y,
+        scrollTrigger: {
+          trigger: ".gallery-about",
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    });
+  });
+</script>
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+  .gallery-wrapper {
+    font-family: "Inter", sans-serif;
+    background-color: #e3e3db;
+    position: relative;
+    width: 100%;
+  }
+
+  .gallery-wrapper * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .gallery-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .gallery-wrapper h1,
+  .gallery-wrapper h2,
+  .gallery-wrapper h3 {
+    font-weight: 400;
+    letter-spacing: -0.05rem;
+    line-height: 1;
+  }
+
+  .gallery-wrapper h1 {
+    font-size: 5rem;
+  }
+
+  .gallery-wrapper h2 {
+    font-size: 4rem;
+    margin-bottom: 3rem;
+  }
+
+  .gallery-wrapper h3 {
+    font-size: 3rem;
+  }
+
+  .gallery-hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    z-index: 5;
+    background: transparent !important;
+  }
+
+  .gallery-about {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    z-index: 15; /* MUST sit on top of the hero */
+    margin-top: 7000vh; /* Reduced margin so photos appear a bit earlier */
+    background: transparent !important;
+    pointer-events: none;
+  }
+
+  .gallery-outro {
+    position: relative;
+    width: 100%;
+    height: 100vh; 
+  }
+
+  .g-hero-img,
+  .g-hero-header {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    will-change: transform, opacity, width, height;
+  }
+
+  .g-hero-img {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+  }
+
+  .g-hero-header {
+    padding: 4rem;
+    color: #fff;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .g-hero-header h1 {
+    width: 75%;
+  }
+
+  .gallery-about,
+  .gallery-outro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .gallery-about {
+    margin-top: 275svh;
+  }
+
+  .g-about-images {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4rem;
+  }
+
+  .g-about-imgs-col {
+    position: relative;
+    height: 125%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    will-change: transform;
+  }
+
+  .g-about-imgs-col .img {
+    width: 200px; /* Aumentado a petición (antes 250px) */
+    height: 250px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* Sombra elegante opcional para destacar */
+  }
+
+  #g-about-imgs-col-1 {
+    transform: translateY(1000px);
+  }
+
+  #g-about-imgs-col-2 {
+    transform: translateX(-225px) translateY(500px);
+  }
+
+  #g-about-imgs-col-3 {
+    transform: translateX(225px) translateY(500px);
+  }
+
+  #g-about-imgs-col-4 {
+    transform: translateY(1000px);
+  }
+
+  .g-about-header {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+  }
+
+  .gallery-outro {
+    background-color: #cecec6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .g-outro-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .g-outro-buttons {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .path-btn {
+    text-decoration: none;
+    color: #111;
+    background: transparent;
+    border: 2px solid #111;
+    padding: 1.5rem 4rem;
+    border-radius: 60px;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .path-btn:hover {
+    background: #111;
+    color: #fff;
+  }
+
+  @media (max-width: 1000px) {
+    .gallery-wrapper h1 {
+      font-size: 3rem;
+    }
+
+    .gallery-wrapper h3 {
+      font-size: 2rem;
+    }
+
+    .gallery-hero {
+      z-index: 20 !important; /* Force thumbnail on top of the stacked center columns on mobile */
+    }
+
+    .gallery-about {
+      pointer-events: auto; /* Just in case */
+    }
+
+    .g-hero-header {
+      padding: 2rem;
+    }
+
+    .g-hero-header h1 {
+      width: 100%;
+    }
+
+    .g-about-header {
+      width: 100%;
+      padding: 2rem;
+    }
+
+    .g-about-images {
+      padding: 2rem;
+    }
+
+    .g-about-imgs-col .img {
+      width: 160px; /* Aumentado a petición para móvil */
+      height: 160px;
+      opacity: 0.35;
+      filter: saturate(0);
+    }
+
+    #g-about-imgs-col-2,
+    #g-about-imgs-col-3 {
+      transform: translateX(0px) translateY(500px);
+    }
+  }
+</style>

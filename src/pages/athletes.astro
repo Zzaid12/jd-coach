@@ -1,0 +1,134 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import ContentShowcase from '../components/ContentShowcase.astro';
+import ServicesCards from '../components/ServicesCards.astro';
+
+const services = [
+  {
+    id: "01",
+    title: "Planificación Élite",
+    subtitle: "Rendimiento puro",
+    description: "Programas de entrenamiento personalizados para deportistas que buscan alcanzar su máximo potencial competitivo.",
+    image: "/foto1.png",
+    features: ["Fuerza y potencia específica", "Monitorización de carga", "Preparación pre-temporada"]
+  },
+  {
+    id: "02",
+    title: "Readaptación",
+    subtitle: "Vuelta segura",
+    description: "Recuperación funcional tras lesiones, centrada en equilibrar debilidades y fortalecer la estructura corporal.",
+    image: "/foto2.png",
+    features: ["Control motor avanzado", "Prevención de recaídas", "Entrenamiento de movilidad"]
+  },
+  {
+    id: "03",
+    title: "Biomecánica",
+    subtitle: "Eficiencia Técnica",
+    description: "Análisis detallado de tus movimientos para optimizar la transferencia de fuerza al gesto deportivo real.",
+    image: "/foto3.png",
+    features: ["Optimización técnica", "Análisis de salto", "Prevención de impacto"]
+  },
+  {
+    id: "04",
+    title: "JD Online",
+    subtitle: "Donde estés",
+    description: "Accede a mi metodología a través de nuestra plataforma premium con seguimiento semanal constante.",
+    image: "/wetransfer_videos-jotade_2026-03-18_0829/IMG-20250405-WA0005.jpg",
+    features: ["App de entrenamiento", "Soporte 24/7", "Feedback nutricional"]
+  }
+];
+
+const athletesItems = [
+  {
+    title: "Potencia Atlética",
+    subtitle: "Rendimiento Superior",
+    description: "Programas diseñados para deportistas que buscan romper sus propios límites a través de la ciencia del movimiento.",
+    media: {
+      type: 'video' as const,
+      src: "/wetransfer_videos-jotade_2026-03-18_0829/VID_20250601_044854_239.mp4"
+    }
+  },
+  {
+    title: "Entrenamiento de Élite",
+    subtitle: "Preparación Real",
+    description: "Metodología avanzada aplicada al gesto deportivo. Maximizamos cada vector de fuerza para asegurar tu evolución constante.",
+    media: {
+      type: 'image' as const,
+      src: "/foto3.png"
+    },
+    lightMode: true
+  },
+  {
+    title: "Explosividad Máxima",
+    subtitle: "Fuerza y Velocidad",
+    description: "Trabajamos en la transferencia de potencia para que seas más rápido y fuerte en el campo de juego.",
+    media: {
+      type: 'video' as const,
+      src: "/wetransfer_videos-jotade_2026-03-18_0829/VID-20250608-WA0088.mp4"
+    }
+  },
+  {
+    title: "Jotade Coach",
+    subtitle: "Dedicación Plena",
+    description: "Un enfoque integral donde el detalle marca la diferencia entre el éxito y la mediocridad.",
+    media: {
+      type: 'image' as const,
+      src: "/wetransfer_videos-jotade_2026-03-18_0829/IMG-20250405-WA0005.jpg"
+    },
+    lightMode: true
+  }
+];
+---
+
+<Layout title="JD Athletes | JD COACH">
+  <main>
+    <Hero 
+      title="JD Athletes" 
+      titleLine2="" 
+      videoSrc="/videos%20hero/VID_20260326_052911_299_bsl.mp4" 
+      showCta={false}
+    />
+    
+    <ContentShowcase items={athletesItems} />
+    
+    <ServicesCards services={services} title="Entrenamiento Elite" subtitle="Lleva tu deporte al siguiente nivel" />
+
+    <section class="page-content">
+      <div class="container">
+        <h2>Próximamente</h2>
+        <p>Estamos preparando contenido exclusivo para deportistas de alto rendimiento.</p>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .page-content {
+    background-color: var(--color-light);
+    color: var(--color-dark);
+    padding: 10rem 2rem;
+    text-align: center;
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  h2 {
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-family: 'Anton', sans-serif;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  p {
+    font-size: 1.2rem;
+    opacity: 0.8;
+  }
+</style>
