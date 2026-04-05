@@ -77,9 +77,7 @@ const {
     if (overlay) gsap.set(overlay, { opacity: 0 });
 
     // Animate in after preloader (if first visit to home) or quickly
-    const hasVisited = sessionStorage.getItem('jd-visited');
-    const isMainPage = window.location.pathname === '/';
-    const delay = (isMainPage && !hasVisited) ? 6 : 0.4;
+    const delay = 0.4;
     
     const tl = gsap.timeline({ delay: delay });
     
