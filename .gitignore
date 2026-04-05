@@ -24,5 +24,6 @@ pnpm-debug.log*
 .idea/
 
 # huge assets or temporary files
-public/wetransfer_*/
-public/videos hero/
+public/wetransfer_vid20260320120748-mp4_2026-03-24_1532/
+# public/wetransfer_videos-jotade_2026-03-18_0829/ <-- removed from ignore
+# public/videos hero/ <-- removed from ignore
