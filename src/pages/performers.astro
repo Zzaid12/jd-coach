@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import ContentShowcase from '../components/ContentShowcase.astro';
 import ServicesCards from '../components/ServicesCards.astro';
+import Footer from '../components/Footer.astro';
 
 const services = [
   {
@@ -94,41 +95,9 @@ const performersItems = [
     
     <ServicesCards services={services} title="JD Performers" subtitle="Entrenamiento para el escenario" />
 
-    <section class="page-content">
-      <div class="container">
-        <h2>Próximamente</h2>
-        <p>Potencia tu rendimiento físico y mental con nuestro programa de entrenamiento avanzado para Performers.</p>
-      </div>
-    </section>
+    <Footer />
   </main>
 </Layout>
 
 <style>
-  .page-content {
-    background-color: var(--color-light);
-    color: var(--color-dark);
-    padding: 10rem 2rem;
-    text-align: center;
-    min-height: 50vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  h2 {
-    font-size: clamp(2rem, 5vw, 4rem);
-    font-family: 'Anton', sans-serif;
-    text-transform: uppercase;
-    margin-bottom: 2rem;
-  }
-
-  p {
-    font-size: 1.2rem;
-    opacity: 0.8;
-  }
 </style>
