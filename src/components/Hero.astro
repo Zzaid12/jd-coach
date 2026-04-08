@@ -5,6 +5,10 @@ interface Props {
   videoSrc?: string;
   showCta?: boolean;
   height?: string;
+  ctaPrimaryText?: string;
+  ctaPrimaryLink?: string;
+  ctaSecondaryText?: string;
+  ctaSecondaryLink?: string;
 }
 
 const { 
@@ -12,7 +16,11 @@ const {
   titleLine2 = "Lo mejor empieza aquí",
   videoSrc = "/assets/videos/hero-main.mp4",
   showCta = true,
-  height = "100vh"
+  height = "100vh",
+  ctaPrimaryText = "Contacta conmigo",
+  ctaPrimaryLink = "/contacto",
+  ctaSecondaryText = "Conóceme más",
+  ctaSecondaryLink = "/#quien-soy"
 } = Astro.props;
 ---
 
@@ -44,8 +52,8 @@ const {
     
     {showCta && (
       <div class="hero-cta">
-        <a href="/contacto" class="btn-primary">Contacta conmigo</a>
-        <a href="/#quien-soy" class="btn-secondary">Conóceme más</a>
+        <a href={ctaPrimaryLink} class="btn-primary" target={ctaPrimaryLink.startsWith('http') ? '_blank' : undefined}>{ctaPrimaryText}</a>
+        <a href={ctaSecondaryLink} class="btn-secondary" target={ctaSecondaryLink.startsWith('http') ? '_blank' : undefined}>{ctaSecondaryText}</a>
       </div>
     )}
   </div>
@@ -346,4 +354,3 @@ const {
     }
   }
 </style>
-
