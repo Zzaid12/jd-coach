@@ -1,0 +1,216 @@
+---
+interface Player {
+  name: string;
+  image: string;
+  team?: string;
+}
+
+interface Props {
+  players: Player[];
+  title?: string;
+}
+
+const { players, title = "NUESTROS ATLETAS" } = Astro.props;
+---
+
+<section class="player-gallery">
+  <div class="gallery-header">
+    <h2 class="gallery-title">{title}</h2>
+    <div class="gallery-divider"></div>
+  </div>
+
+  <div class="players-grid">
+    {players.map((player) => (
+      <div class="player-card">
+        <div class="player-image-wrapper">
+          <img src={player.image} alt={player.name} loading="lazy" />
+          <div class="player-overlay"></div>
+          <div class="player-name-wrapper">
+            <h3 class="player-name">{player.name}</h3>
+            {player.team && <p class="player-team">{player.team}</p>}
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.player-card');
+    
+    gsap.from(cards, {
+      opacity: 0,
+      y: 50,
+      stagger: 0.1,
+      duration: 1,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: ".players-grid",
+        start: "top 80%",
+      }
+    });
+
+    const title = document.querySelector('.gallery-title');
+    gsap.from(title, {
+      opacity: 0,
+      y: 30,
+      duration: 1,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: ".gallery-header",
+        start: "top 85%",
+      }
+    });
+  });
+</script>
+
+<style>
+  .player-gallery {
+    background-color: var(--color-dark);
+    padding: 120px 2rem;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .gallery-header {
+    text-align: center;
+    margin-bottom: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .gallery-title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(3rem, 10vw, 5rem);
+    color: var(--color-light);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .gallery-divider {
+    width: 80px;
+    height: 4px;
+    background-color: var(--color-primary);
+  }
+
+  .players-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .player-card {
+    position: relative;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    border-radius: 12px;
+    cursor: pointer;
+    background-color: #222;
+  }
+
+  .player-image-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .player-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .player-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%);
+    opacity: 0.7;
+    transition: opacity 0.4s ease;
+  }
+
+  .player-name-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 2.5rem 2rem;
+    z-index: 2;
+    transform: translateY(10px);
+    transition: transform 0.5s ease;
+  }
+
+  .player-name {
+    font-family: 'Anton', sans-serif;
+    font-size: 2rem;
+    color: var(--color-light);
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+
+  .player-team {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    color: var(--color-primary);
+    margin: 0;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* Hover Effects */
+  .player-card:hover .player-image-wrapper img {
+    transform: scale(1.08);
+  }
+
+  .player-card:hover .player-overlay {
+    opacity: 0.9;
+  }
+
+  .player-card:hover .player-name-wrapper {
+    transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    .player-gallery {
+      padding: 80px 1.5rem;
+    }
+
+    .players-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .player-card {
+      aspect-ratio: 3/4;
+    }
+
+    .player-name {
+      font-size: 1.25rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .player-team {
+      font-size: 0.7rem;
+    }
+
+    .player-name-wrapper {
+      padding: 1.5rem 1rem;
+    }
+  }
+</style>

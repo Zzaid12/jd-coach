@@ -2,82 +2,24 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import ContentShowcase from '../components/ContentShowcase.astro';
-import ServicesCards from '../components/ServicesCards.astro';
 import Footer from '../components/Footer.astro';
 
-const services = [
+const performersServices = [
   {
-    id: "01",
-    title: "Cuerpo Escénico",
-    subtitle: "Estética y Función",
-    description: "Preparación física enfocada en las necesidades estéticas y funcionales del artista en el escenario.",
-    image: "/assets/images/training-3.png",
-    features: ["Acondicionamiento físico", "Control postural", "Estética corporal"]
-  },
-  {
-    id: "02",
-    title: "Resistencia Giras",
-    subtitle: "Rendimiento Constante",
-    description: "Programas diseñados para mantener el pico de forma durante largos periodos de tour o temporadas teatrales.",
-    image: "/assets/images/training-1.png",
-    features: ["Resistencia específica", "Programas de viaje", "Manejo de fatiga"]
-  },
-  {
-    id: "03",
-    title: "Dominio Corporal",
-    subtitle: "Fluidez Ártistica",
-    description: "Entrenamiento de movilidad y control motor para mejorar la expresividad y evitar lesiones en escena.",
-    image: "/assets/images/training-2.png",
-    features: ["Movilidad dinámica", "Equilibrio y fuerza", "Readaptación funcional"]
-  },
-  {
-    id: "04",
-    title: "JD Performers",
-    subtitle: "Donde estés",
-    description: "Seguimiento online avanzado adaptado a los horarios irregulares y demandas del mundo del espectáculo.",
-    image: "/assets/images/performer-profile.jpg",
-    features: ["Programas flexibles", "Análisis de vídeo", "Soporte constante"]
-  }
-];
-
-const performersItems = [
-  {
-    title: "Rendimiento Sin Límites",
-    subtitle: "Nivel Profesional",
-    description: "Sistema de entrenamiento optimizado para el máximo nivel. Adaptamos la biomecánica a tus necesidades específicas.",
+    title: "ENTRENAMIENTO ONLINE",
+    subtitle: "MÁXIMA IMPLICACIÓN",
+    description: "“Programas personalizados con la máxima implicación, porque tú bienestar no admite excusas”",
+    features: [
+      "Trabaja en base a tus objetivos, necesidades y disponibilidad",
+      "Planificación mensual y seguimiento constante (App HARBIZ)",
+      "Desde lesiones a control de peso, pasando por opositores",
+      "Entrena como un deportista, para cumplir con tus retos del día a día",
+      "PRECIOS: 2 ses/sem = 97€ al mes | 3+ ses/sem = 121€ al mes"
+    ],
     media: {
       type: 'video' as const,
-      src: "/assets/videos/athlete-performance.mp4"
+      src: "/assets/WEB/JD PERFORMERS/Vídeo 2. Entrenamiento Online.mp4"
     }
-  },
-  {
-    title: "Método JD",
-    subtitle: "Ciencia Aplicada",
-    description: "No dejamos nada al azar. Cada ejercicio tiene un propósito biomecánico claro para maximizar tu potencial.",
-    media: {
-      type: 'image' as const,
-      src: "/assets/images/training-2.png"
-    },
-    lightMode: true
-  },
-  {
-    title: "Control Total",
-    subtitle: "Potencia el Movimiento",
-    description: "Entrenamiento dinámico enfocado en el control corporal y la generación de fuerza eficiente.",
-    media: {
-      type: 'video' as const,
-      src: "/assets/videos/performer-control.mp4"
-    }
-  },
-  {
-    title: "Dedicación Plena",
-    subtitle: "Estrategia de Éxito",
-    description: "Potencia tu rendimiento físico y mental con nuestro programa de acompañamiento avanzado.",
-    media: {
-      type: 'image' as const,
-      src: "/assets/images/performer-profile.jpg"
-    },
-    lightMode: true
   }
 ];
 ---
@@ -86,18 +28,135 @@ const performersItems = [
   <main>
     <Hero 
       title="JD Performers" 
-      titleLine2="" 
+      titleLine2="Rendimiento real para personas comprometidas con su salud" 
       videoSrc="/assets/videos/hero-secondary.mp4" 
       showCta={false}
     />
     
-    <ContentShowcase items={performersItems} />
+    <ContentShowcase items={performersServices} />
     
-    <ServicesCards services={services} title="JD Performers" subtitle="Entrenamiento para el escenario" />
-
+    <section class="cta-final-section">
+      <div class="cta-image-container">
+        <img src="/assets/WEB/JD PERFORMERS/Foto 3. Quiero empezar ya!.jpg" alt="Quiero empezar ya" class="cta-bg-image" />
+        <div class="cta-overlay"></div>
+      </div>
+      
+      <div class="cta-content">
+        <h2 class="cta-title">QUIERO EMPEZAR YA</h2>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdYNlrmsiJ9UrIF8Ta5XfXpm-PZgy8gUUGYocrTDzssaPdzkw/viewform" target="_blank" class="cta-button">
+          RELLENAR FORMULARIO
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+    
     <Footer />
   </main>
 </Layout>
 
 <style>
+  .cta-final-section {
+    position: relative;
+    height: 350px; /* Sección corta como solicitado */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: var(--color-dark);
+  }
+
+  .cta-image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .cta-bg-image {
+    width: 100%;
+    height: 120%; /* Un poco más de altura para permitir el parallax/movimiento */
+    top: -10%;
+    position: absolute;
+    object-fit: cover;
+    object-position: center 15%; /* Muestra más de la parte superior */
+    filter: brightness(0.4);
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .cta-final-section:hover .cta-bg-image {
+    transform: scale(1.02);
+  }
+
+  .cta-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, var(--color-dark) 0%, transparent 50%, var(--color-dark) 100%);
+  }
+
+  .cta-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 2rem;
+    width: 100%;
+  }
+
+  .cta-title {
+    font-family: 'Anton', sans-serif;
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    color: var(--color-light);
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: var(--color-primary);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 1.25rem 2.5rem;
+    border-radius: 100px;
+    font-family: 'Anton', sans-serif;
+    font-size: 1.25rem;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 2px solid var(--color-primary);
+  }
+
+  .cta-button:hover {
+    background-color: transparent;
+    color: var(--color-primary);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 30px rgba(240, 105, 45, 0.3);
+  }
+
+  .cta-button svg {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease;
+  }
+
+  .cta-button:hover svg {
+    transform: translateX(5px);
+  }
+
+  @media (max-width: 768px) {
+    .cta-final-section {
+      height: 300px;
+    }
+    .cta-title {
+      font-size: 2.2rem;
+    }
+  }
 </style>

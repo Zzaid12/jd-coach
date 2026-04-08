@@ -2,103 +2,134 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import ContentShowcase from '../components/ContentShowcase.astro';
-import ServicesCards from '../components/ServicesCards.astro';
+import PlayerGallery from '../components/PlayerGallery.astro';
 import Footer from '../components/Footer.astro';
 
-const services = [
+const athletesServices = [
   {
-    id: "01",
     title: "POST-SEASON PROGRAM",
-    subtitle: "Para jugadores en desarrollo (U-23)",
-    description: "Programa basado en su edad madurativa para explotar el potencial físico y técnico tras la temporada.",
-    image: "/assets/images/training-1.png",
+    subtitle: "Under-23 Performance",
+    description: "Programa diseñado para explotar el potencial físico y técnico de jugadores en desarrollo tras finalizar la temporada competiriva.",
     features: [
-      "Cuestionario y valoración inicial", 
-      "Programa por categoría, edad, sexo y eslabones débiles", 
-      "Seguimiento diario por App HARBIZ", 
-      "PRECIO: 109€", 
-      "OFERTA EN PAREJA: 150€"
-    ]
+      "Para jugadores en desarrollo (Under-23)",
+      "Planificación basada en la edad madurativa",
+      "Cuestionario y valoración inicial detallada",
+      "Programa por categoría, edad, sexo y eslabones débiles",
+      "Seguimiento diario cómodo por medio de la app HARBIZ",
+      "PRECIO: 109€ (OFERTA EN PAREJA: 150€)"
+    ],
+    media: {
+      type: 'video' as const,
+      src: "/assets/WEB/JD ATHLETES/Vídeo 2. PostSeason Porgram.mp4"
+    }
   },
   {
-    id: "02",
     title: "PROGRAMA INDIVIDUAL",
-    subtitle: "Para pros o máximo potencial",
-    description: "Enfoque integral: físico, fisiológico, ocular, pisada, mandíbula, sis. vestibular… conócete a fondo.",
-    image: "/assets/images/training-2.png",
+    subtitle: "Máximo Potencial",
+    description: "Enfoque integral y profundo para exprimir cada vector de fuerza y cada sistema biológico al servicio del gesto deportivo.",
     features: [
+      "Para pros o jugadores de alto rendimiento",
+      "Enfoque: físico, fisiológico, ocular, pisada, mandíbula, sistema vestibular...",
       "Valoración inicial en sesión individual",
-      "Programación por HARBIZ (App intuitiva)",
+      "Programación individualizada por medio de HARBIZ",
       "Posibilidad de trabajo presencial",
-      "PRECIO: 120€ / MES"
-    ]
+      "Precio: 120€ mes"
+    ],
+    media: {
+      type: 'image' as const,
+      src: "/assets/WEB/JD ATHLETES/Foto 3. Programa individual.jpg"
+    },
+    lightMode: true
   },
   {
-    id: "03",
     title: "SERVICIOS ASOCIADOS",
-    subtitle: "Red de especialistas",
-    description: "Acceso a nuestro centro de fisioterapia especializada en recuperación y alto rendimiento.",
-    image: "/assets/images/training-3.png",
+    subtitle: "Rendimiento 360º",
+    description: "Acceso a una red de especialistas de élite para cubrir todas las necesidades del deportista profesional.",
     features: [
-      "Podología y Nutrición/Suplementación",
-      "Experto en microbiota",
-      "Optometrista (Especialista sist. visual)",
-      "Experto en articulación mandíbular (ATM)",
-      "Asesoría fiscal y laboral"
-    ]
+      "Centro de fisioterapia especializada en recuperación",
+      "Servicio de Podología y Nutrición/Suplementación",
+      "Experto en microbiota y Optometrista (Sist. Visual)",
+      "Experto en articulación atemporomandibular",
+      "Asesoría fiscal y laboral para deportistas"
+    ],
+    media: {
+      type: 'image' as const,
+      src: "/assets/WEB/JD ATHLETES/Foto 4. Servicios asociados.jpg"
+    }
   },
   {
-    id: "04",
     title: "SERVICIO PRESENCIAL",
     subtitle: "Sede Madrid",
-    description: "Sede principal en Madrid (Calle Arregui y Aruej). Solo para miembros del programa.",
-    image: "/assets/images/athlete-profile.jpg",
+    description: "Atención directa y presencial en nuestra sede principal para garantizar la máxima calidad técnica en cada repetición.",
     features: [
+      "Sede principal Madrid (Calle Arregui y Aruej)",
       "Plazas muy limitadas",
-      "Sede Calle Arregui y Aruej",
-      "Exclusivo para miembros del programa"
-    ]
+      "Solo para miembros del programa",
+      "Máximo compromiso y seguimiento real"
+    ],
+    media: {
+      type: 'video' as const,
+      src: "/assets/WEB/JD ATHLETES/Video 5. Servicio presencial.mp4"
+    },
+    lightMode: true
   }
 ];
 
-const athletesItems = [
-  {
-    title: "Potencia Atlética",
-    subtitle: "Rendimiento Superior",
-    description: "Programas diseñados para deportistas que buscan romper sus propios límites a través de la ciencia del movimiento.",
-    media: {
-      type: 'video' as const,
-      src: "/assets/videos/athlete-performance.mp4"
-    }
+const players = [
+  { 
+    name: "Aminata Sangaré", 
+    team: "Liga Fem Endesa", 
+    image: "/assets/WEB/JD ATHLETES/Sección jugadores/1. Aminata Sangaré (Liga Fem Endesa).png" 
   },
-  {
-    title: "Entrenamiento de Élite",
-    subtitle: "Preparación Real",
-    description: "Metodología avanzada aplicada al gesto deportivo. Maximizamos cada vector de fuerza para asegurar tu evolución constante.",
-    media: {
-      type: 'image' as const,
-      src: "/assets/images/training-3.png"
-    },
-    lightMode: true
+  { 
+    name: "Paul Jorgensen", 
+    team: "Liga Endesa", 
+    image: "/assets/WEB/JD ATHLETES/Sección jugadores/2. Paul Jorgensen (Liga Endesa).png" 
   },
-  {
-    title: "Explosividad Máxima",
-    subtitle: "Fuerza y Velocidad",
-    description: "Trabajamos en la transferencia de potencia para que seas más rápido y fuerte en el campo de juego.",
-    media: {
-      type: 'video' as const,
-      src: "/assets/videos/athlete-explosive.mp4"
-    }
+  { 
+    name: "María Espín", 
+    team: "Liga Fem Endesa", 
+    image: "/assets/WEB/JD ATHLETES/Sección jugadores/3. María Espín (Liga Fem Endesa).jpg" 
   },
-  {
-    title: "Jotade Coach",
-    subtitle: "Dedicación Plena",
-    description: "Un enfoque integral donde el detalle marca la diferencia entre el éxito y la mediocridad.",
-    media: {
-      type: 'image' as const,
-      src: "/assets/images/athlete-profile.jpg"
-    },
-    lightMode: true
+  { 
+    name: "Hansel Atencia", 
+    team: "Internacional con Colombia", 
+    image: "/assets/WEB/JD ATHLETES/Sección jugadores/4. Hansel Atencia (Internacional con Colombia).png" 
+  },
+  { 
+    name: "Mario Lorenzo", 
+    team: "Club Baloncesto Estudiantes", 
+    image: "/assets/WEB/JD ATHLETES/Sección jugadores/5. Mario Lorenzo (Club Baloncesto Estudiantes).png" 
+  },
+  { 
+    name: "Marcos Zurita", 
+    team: "Club Baloncesto Estudiantes", 
+    image: "/assets/WEB/JD ATHLETES/Sección jugadores/6. Marcos Zurita (Club Baloncesto Estudiantes).png" 
+  },
+  { 
+    name: "Inés Villa", 
+    team: "Liga Iberdrola Voleibol", 
+    image: "/assets/WEB/JD ATHLETES/Sección jugadores/7. Inés Villa (Liga Iberdrola Voleibol).png" 
+  },
+  { 
+    name: "Lucía Togores", 
+    team: "Liga Fem Endesa", 
+    image: "/assets/WEB/JD ATHLETES/Sección jugadores/8. Lucía Togores (Liga Fem Endesa).jpeg" 
+  },
+  { 
+    name: "María Barneda", 
+    team: "Liga Fem Endesa", 
+    image: "/assets/WEB/JD ATHLETES/Sección jugadores/9. María Barneda (Liga Fem Endesa).jpeg" 
+  },
+  { 
+    name: "Sara Castro", 
+    team: "Liga Fem Challenge", 
+    image: "/assets/WEB/JD ATHLETES/Sección jugadores/10. Sara Castro (Liga Fem Challenge).jpeg" 
+  },
+  { 
+    name: "María Torres", 
+    team: "Liga Challenge", 
+    image: "/assets/WEB/JD ATHLETES/Sección jugadores/11. María Torres (Liga Challenge).jpeg" 
   }
 ];
 ---
@@ -106,16 +137,16 @@ const athletesItems = [
 <Layout title="JD Athletes | JD COACH">
   <main>
     <Hero 
-      title="JD Athletes" 
-      titleLine2="" 
-      videoSrc="/assets/videos/hero-secondary.mp4" 
+      title="JD ATHLETES" 
+      titleLine2="Alto rendimiento y desarrollo de jugadores" 
+      videoSrc="/assets/WEB/JD ATHLETES/Vídeo Portada. JD ATHLETES.mp4" 
       showCta={false}
     />
     
-    <ContentShowcase items={athletesItems} />
-    
-    <ServicesCards services={services} title="Entrenamiento Elite" subtitle="Lleva tu deporte al siguiente nivel" />
+    <ContentShowcase items={athletesServices} />
 
+    <PlayerGallery players={players} title="PRO-ATHLETES" />
+    
     <Footer />
   </main>
 </Layout>

@@ -4,7 +4,7 @@
 <nav class="navbar">
   <div class="navbar-container">
     <a href="/" class="navbar-logo">
-      <img src="/logo.png" alt="JD Coach" />
+      <img src="/assets/images/logo_JOTADE-WHITE-ORANGE%20(1).png" alt="JD Coach" />
     </a>
     <button class="nav-toggler" aria-label="Menu">
       <span></span>
@@ -20,25 +20,14 @@
     
     <div class="nav-items">
       <div class="nav-items-col">
-        <div class="nav-socials">
-          <a href="https://instagram.com/jotadecoach" target="_blank">Instagram</a>
-          <a href="#">Youtube</a>
-          <a href="#">TikTok</a>
-        </div>
-        <div class="nav-legal">
-          <a href="#">Aviso Legal</a>
-          <a href="#">Privacidad</a>
-        </div>
-      </div>
-      <div class="nav-items-col">
         <div class="nav-primary-links">
           <a href="/">Home</a>
           <a href="/athletes">JD Athletes</a>
           <a href="/performers">JD Performers</a>
         </div>
         <div class="nav-secondary-links">
-          <a href="#contacto">Contacto</a>
-          <a href="#quien-soy">Sobre mí</a>
+          <a href="/contacto">Contacto</a>
+          <a href="https://www.instagram.com/jotade_coach/" target="_blank">Instagram</a>
         </div>
       </div>
     </div>
@@ -162,12 +151,19 @@
     justify-content: space-between;
     align-items: center;
     position: relative;
-    z-index: 100;
+    z-index: 1100; /* Asegura que el botón de cierre esté por encima del menú */
+  }
+
+  @media (max-width: 768px) {
+    .navbar-container { padding: 0.75rem 1.25rem; }
   }
 
   .navbar-logo img {
     height: 40px;
-    filter: brightness(0) invert(1);
+  }
+
+  @media (max-width: 768px) {
+    .navbar-logo img { height: 32px; }
   }
 
   .nav-toggler {
@@ -214,9 +210,9 @@
 
   /* Distinctive orange shades */
   .nav-bg:nth-child(1) { background-color: var(--color-primary); z-index: 1; }
-  .nav-bg:nth-child(2) { background-color: #1a1a1a; z-index: 2; }
-  .nav-bg:nth-child(3) { background-color: #222; z-index: 3; }
-  .nav-bg:nth-child(4) { background-color: #000; z-index: 4; }
+  .nav-bg:nth-child(2) { background-color: #222; z-index: 2; }
+  .nav-bg:nth-child(3) { background-color: #1a1a1a; z-index: 3; }
+  .nav-bg:nth-child(4) { background-color: #1a1a1a; z-index: 4; }
 
   .nav-items {
     position: relative;
@@ -225,14 +221,18 @@
     height: 100%;
     gap: 4rem;
     padding: 12rem 4rem 4rem;
-    background-color: #000;
+    background-color: #1a1a1a;
     z-index: 10;
     clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
     will-change: clip-path;
   }
 
-  .nav-items-col:nth-child(1) { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-  .nav-items-col:nth-child(2) { flex: 3; display: flex; flex-direction: column; gap: 4rem; }
+  .nav-items-col { 
+    width: 100%;
+    display: flex; 
+    flex-direction: column; 
+    gap: 4rem; 
+  }
 
   .nav-items a {
     text-decoration: none;
@@ -266,8 +266,15 @@
   }
 
   @media (max-width: 1024px) {
-    .nav-items { flex-direction: column-reverse; padding: 8rem 2rem 2rem; gap: 2rem; }
-    .nav-primary-links a { font-size: 3rem; }
-    .nav-secondary-links { flex-direction: column; gap: 1rem; }
+    .nav-items { 
+      flex-direction: column-reverse; 
+      padding: 2rem; 
+      gap: 3rem; 
+      justify-content: center; 
+      align-items: center;
+      text-align: center;
+    }
+    .nav-primary-links a { font-size: 3.5rem; }
+    .nav-secondary-links { flex-direction: column; gap: 1.5rem; align-items: center; }
   }
 </style>

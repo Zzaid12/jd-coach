@@ -27,7 +27,7 @@ const {
     <h2 class="services-main-title">{title}</h2>
   </div>
 
-  <div class="services-container">
+  <div class={`services-container ${services.length === 1 ? 'single-service' : ''}`}>
     {services.map((service) => (
       <div class="service-card" id={`service-${service.id}`}>
         <div class="service-image">
@@ -37,22 +37,27 @@ const {
 
         <div class="service-content">
           <div class="service-teaser">
-            <span class="service-number">{service.id}</span>
             <h3 class="service-title">{service.title}</h3>
+            <div class="expand-plus">
+              <span></span>
+              <span></span>
+            </div>
           </div>
 
           <div class="service-details">
             <p class="service-desc">{service.description}</p>
-            <ul class="service-features">
-              {service.features.map(feature => (
-                <li>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path d="M5 13l4 4L19 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                  <span>{feature}</span>
-                </li>
-              ))}
-            </ul>
+            {service.features && service.features.length > 0 && (
+              <ul class="service-features">
+                {service.features.map(feature => (
+                  <li>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path d="M5 13l4 4L19 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       </div>
@@ -94,8 +99,45 @@ const {
     width: 100%;
     max-width: 1400px;
     margin: 0 auto;
-    gap: 1rem;
-    height: 600px;
+    gap: 1.5rem;
+    height: 750px;
+  }
+
+  .services-container.single-service {
+    justify-content: center;
+    height: auto;
+  }
+
+  .single-service .service-card {
+    max-width: 800px;
+    flex: none;
+    width: 100%;
+    height: 750px;
+    cursor: default;
+  }
+
+  .single-service .service-card .service-image img {
+    filter: grayscale(0) brightness(0.4);
+    transform: scale(1.05);
+  }
+
+  /* Disable hover effects for single service card */
+  .single-service .service-card:hover .service-image img {
+    transform: scale(1.05);
+  }
+
+  .single-service .service-card .service-details {
+    max-height: 750px;
+    opacity: 1;
+    padding-top: 2.5rem;
+  }
+
+  .single-service .service-card .service-teaser {
+    transform: translateY(-20px) !important;
+  }
+
+  .single-service .service-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
   }
 
   .service-card {
@@ -110,7 +152,11 @@ const {
   }
 
   .service-card:hover {
-    flex: 3;
+    flex: 4;
+  }
+
+  .single-service .service-card:hover {
+    flex: none;
   }
 
   /* Image */
@@ -156,10 +202,18 @@ const {
     flex-direction: column;
     justify-content: flex-end;
     color: var(--color-light);
-    pointer-events: none;
+    pointer-events: none; /* Allows hover on card through content */
+  }
+
+  .service-teaser, .service-details {
+    pointer-events: auto; /* Allows interaction within content */
   }
 
   .service-teaser {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
     transition: transform 0.6s ease;
   }
 
@@ -177,6 +231,7 @@ const {
 
   .service-title {
     font-size: 2.5rem;
+    color: var(--color-primary);
     line-height: 1;
     margin: 0;
     transition: font-size 0.5s ease;
@@ -186,15 +241,71 @@ const {
   .service-details {
     max-height: 0;
     opacity: 0;
-    overflow: hidden;
+    overflow-y: auto;
     transition: max-height 0.8s ease, opacity 0.5s ease;
     padding-top: 0;
+    -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
+    z-index: 5;
+  }
+
+  .expand-plus {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    transition: transform 0.4s ease;
+    display: block; /* Visible always */
+    flex-shrink: 0;
+  }
+
+  .expand-plus span {
+    position: absolute;
+    background: #f0692d; /* Direct brand color */
+    background: var(--color-primary, #f0692d);
+    transition: all 0.4s ease;
+  }
+
+  .expand-plus span:first-child {
+    width: 100%;
+    height: 2px;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+  }
+
+  .expand-plus span:last-child {
+    width: 2px;
+    height: 100%;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+  }
+
+  .service-card:hover .expand-plus {
+    transform: rotate(45deg);
+  }
+
+  .service-card:hover .expand-plus span:last-child {
+    opacity: 0;
   }
 
   .service-card:hover .service-details {
-    max-height: 500px;
+    max-height: 600px;
     opacity: 1;
-    padding-top: 2rem;
+    padding-top: 1.5rem;
+    overflow-y: auto;
+    padding-right: 1rem;
+  }
+
+  /* Custom scrollbar for premium feel */
+  .service-details::-webkit-scrollbar {
+    width: 4px;
+  }
+  .service-details::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  .service-details::-webkit-scrollbar-thumb {
+    background: var(--color-primary);
+    border-radius: 10px;
   }
 
   .service-desc {
@@ -231,6 +342,14 @@ const {
 
   /* Vertical stacking on mobile */
   @media (max-width: 1024px) {
+    .services-wrapper {
+      padding: 5rem 1.5rem;
+    }
+
+    .services-header {
+      margin-bottom: 3rem;
+    }
+
     .services-container {
       flex-direction: column;
       height: auto;
@@ -244,12 +363,20 @@ const {
     }
 
     .service-card:hover {
-      flex: none;
-      height: 550px;
+      height: 750px;
     }
 
     .service-title {
-      font-size: 2rem;
+      font-size: 1.6rem;
+    }
+
+    .expand-plus {
+      width: 20px;
+      height: 20px;
+    }
+
+    .service-content {
+      pointer-events: auto; /* Let content handle taps on mobile */
     }
   }
 </style>

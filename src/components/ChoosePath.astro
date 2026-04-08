@@ -1,80 +1,139 @@
 ---
 ---
 
-<section class="choose-path-section">
-  <div class="choose-path-content">
-    <h2>Elige tu camino</h2>
-    <div class="choose-path-buttons">
-      <a href="/athletes" class="path-btn">JD Athletes</a>
-      <a href="/performers" class="path-btn">JD Performers</a>
+<section class="choose-path-section" id="choose-path">
+  <div class="choose-path-container">
+    <h2 class="path-title">ELIGE TU CAMINO</h2>
+    
+    <div class="paths-options">
+      <div class="path-box">
+        <p class="description">Salud, desarrollo físico y readaptación</p>
+        <a href="/performers" class="action-btn">JD PERFORMERS</a>
+      </div>
+      
+      <div class="path-box">
+        <p class="description">Alto rendimiento y desarrollo de jugadores</p>
+        <a href="/athletes" class="action-btn">JD ATHLETES</a>
+      </div>
     </div>
   </div>
 </section>
 
 <style>
   .choose-path-section {
-    background-color: var(--color-light);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 10rem 2rem;
+    background-color: #ffffff;
+    padding: 100px 20px;
     width: 100%;
+    position: relative;
+    z-index: 10;
   }
 
-  .choose-path-content {
+  .choose-path-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .path-title {
+    font-size: clamp(3rem, 7vw, 4.5rem);
+    color: #1a1a1a;
+    margin-bottom: 50px;
+    font-family: 'Anton', sans-serif;
+    letter-spacing: 0.05em;
+  }
+
+  .paths-options {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
+  .path-box {
+    flex: 1;
+    min-width: 320px;
+    max-width: 480px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 30px;
+    padding: 20px;
   }
 
-  .choose-path-content h2 {
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    margin-bottom: 3rem;
-    font-weight: 400;
-    letter-spacing: -0.05rem;
-    color: var(--color-dark);
-    text-transform: uppercase;
-    font-family: 'Anton', sans-serif;
-  }
-
-  .choose-path-buttons {
-    display: flex;
-    gap: 3rem;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .path-btn {
-    text-decoration: none;
-    color: var(--color-primary);
-    background: transparent;
-    border: 2px solid var(--color-primary);
-    padding: 1.5rem 4rem;
-    border-radius: 60px;
-    font-size: 1.5rem;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-    cursor: pointer;
+  .description {
     font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333333;
+    line-height: 1.4;
+    min-height: 4rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: none;
+    text-align: center;
   }
 
-  .path-btn:hover {
-    background: var(--color-primary);
-    color: var(--color-light);
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(240, 105, 45, 0.2);
+  .action-btn {
+    text-decoration: none;
+    color: #f0692d;
+    background: transparent;
+    border: 3px solid #f0692d;
+    padding: 20px 40px;
+    width: 100%;
+    max-width: 350px;
+    border-radius: 100px;
+    font-size: 1.3rem;
+    font-weight: 800;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Anton', sans-serif; /* Using Anton for buttons too for impact */
+    letter-spacing: 0.1em;
+  }
+
+  .action-btn:hover {
+    background: #f0692d;
+    color: #ffffff;
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(240, 105, 45, 0.3);
   }
 
   @media (max-width: 768px) {
-    .choose-path-buttons {
+    .choose-path-section {
+      padding: 60px 20px;
+    }
+
+    .path-title {
+      font-size: 2.8rem;
+      margin-bottom: 2rem;
+    }
+    
+    .paths-options {
+      flex-direction: column;
+      gap: 4rem;
+    }
+    
+    .path-box {
+      width: 100%;
+      min-width: 0;
+      padding: 0;
       gap: 1.5rem;
     }
     
-    .path-btn {
-      padding: 1.2rem 3rem;
+    .description {
       font-size: 1.2rem;
+      min-height: auto;
+      padding: 0 1rem;
+    }
+    
+    .action-btn {
+      padding: 18px 30px;
+      font-size: 1.2rem;
+      max-width: 100%; /* Take full width on mobile within the box */
     }
   }
 </style>

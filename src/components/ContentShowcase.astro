@@ -3,6 +3,7 @@ interface ShowcaseItem {
   title: string;
   subtitle?: string;
   description: string;
+  features?: string[];
   media: {
     type: 'image' | 'video';
     src: string;
@@ -45,6 +46,19 @@ const { items } = Astro.props;
           <h2 class="title">{item.title}</h2>
           <div class="divider"></div>
           <p class="description">{item.description}</p>
+          
+          {item.features && item.features.length > 0 && (
+            <ul class="features-list">
+              {item.features.map(feature => (
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </div>
@@ -106,16 +120,16 @@ const { items } = Astro.props;
 
   /* Media Section */
   .showcase-media {
-    width: 65%;
-    height: 80vh;
+    width: 45%; /* Reducido para crear un contenedor más vertical/portrait */
+    height: 85vh; /* Altura generosa pero manejable (no llega a 150vh) */
     position: relative;
     z-index: 1;
-    margin-left: 5%;
+    margin-left: 10%;
   }
 
   .reverse .showcase-media {
     margin-left: 0;
-    margin-right: 5%;
+    margin-right: 10%;
   }
 
   .media-mask {
@@ -132,9 +146,9 @@ const { items } = Astro.props;
 
   .media-container {
     width: 100%;
-    height: 120%;
+    height: 105%; /* Mínimo necesario para el parallax, reduciendo el zoom base */
     position: absolute;
-    top: -10%;
+    top: -2.5%;
   }
 
   .media-container img,
@@ -147,12 +161,12 @@ const { items } = Astro.props;
 
   .showcase-row:hover .media-container img,
   .showcase-row:hover .media-container video {
-    transform: scale(1.1);
+    transform: scale(1.02); /* Escala mucho más suave */
   }
 
   /* Content Section */
   .showcase-content {
-    width: 45%;
+    width: 50%;
     position: absolute;
     right: 5%;
     z-index: 2;
@@ -220,6 +234,35 @@ const { items } = Astro.props;
     font-weight: 400;
   }
 
+  .features-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .features-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.4;
+  }
+
+  .features-list svg {
+    color: var(--color-primary);
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+  }
+
+  .light .features-list li {
+    color: rgba(0, 0, 0, 0.7);
+  }
+
   .light .description {
     color: rgba(0,0,0,0.7);
   }
@@ -255,12 +298,31 @@ const { items } = Astro.props;
     }
 
     .content-card {
-      padding: 3rem 2rem;
+      padding: 2rem 1.5rem;
+    }
+
+    .title {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .description {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .features-list {
+      margin-top: 1.5rem;
+      gap: 0.5rem;
+    }
+
+    .features-list li {
+      font-size: 0.85rem;
     }
 
     .showcase-number {
-      top: 2rem;
-      font-size: 50vw;
+      top: 1rem;
+      font-size: 40vw;
     }
   }
 </style>
@@ -305,24 +367,24 @@ const { items } = Astro.props;
 
       // Reveal animations
       gsap.from(card, {
-        x: row.classList.contains('reverse') ? -100 : 100,
+        y: 30,
         opacity: 0,
-        duration: 1.5,
-        ease: "power4.out",
+        duration: 0.8,
+        ease: "power2.out",
         scrollTrigger: {
           trigger: row,
-          start: "top 80%",
+          start: "top 85%",
         }
       });
 
       gsap.from(number, {
         opacity: 0,
-        scale: 0.8,
-        duration: 2,
+        scale: 0.9,
+        duration: 1.2,
         ease: "power2.out",
         scrollTrigger: {
           trigger: row,
-          start: "top 80%",
+          start: "top 85%",
         }
       });
     });

@@ -1,7 +1,7 @@
 ---
 ---
 
-<section class="horizontal-scroll-section">
+<section class="horizontal-scroll-section" id="quien-soy">
   <div class="cards-wrapper">
     <!-- Card 1 -->
     <div class="card-container">
@@ -11,7 +11,7 @@
           <p>Soy Pablo Jiménez Daza, preparador físico y entrenador personal. Tras más de 10 años de experiencia y miles de horas en pista y gimnasio, mi conclusión es clara: el compromiso no entiende de categorías. Ya seas un jugador de la ACB o una persona que busca transformar su salud, mi enfoque es el mismo: máximo rigor técnico e implicación absoluta.</p>
         </div>
         <div class="card-image">
-          <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=2070&auto=format&fit=crop" alt="Entrenador Personal Madrid" />
+          <img src="/assets/WEB/HOME/Foto 1. Conóceme más.jpg" alt="Entrenador Personal Madrid" />
         </div>
       </div>
     </div>
@@ -30,7 +30,7 @@
           </ul>
         </div>
         <div class="card-image">
-          <img src="/assets/images/training-1.png" alt="JD Coach Authority" />
+          <img src="/assets/WEB/HOME/Foto 2. Conóceme más.jpg" alt="JD Coach Authority" />
         </div>
       </div>
     </div>
@@ -49,7 +49,7 @@
           <p>Hoy aplico este estándar de élite tanto en <strong>JD_Athletes</strong> como en <strong>JD_Performers</strong>. Si eres capaz de comprometerte, mereces un entrenamiento de primer nivel.</p>
         </div>
         <div class="card-image">
-          <img src="/assets/images/training-2.png" alt="JD Coach Experience" />
+          <img src="/assets/WEB/HOME/Foto 3. Conóceme más.jpg" alt="JD Coach Experience" />
         </div>
       </div>
     </div>
@@ -65,7 +65,7 @@
           </blockquote>
         </div>
         <div class="card-image">
-          <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=2070&auto=format&fit=crop" alt="Empieza hoy" />
+          <img src="/assets/WEB/HOME/Foto 4. Conóceme más.jpg" alt="Empieza hoy" />
         </div>
       </div>
     </div>
@@ -114,18 +114,20 @@
 
   .cards-wrapper {
     display: flex;
-    width: 400%; /* 4 cards * 100% */
+    width: fit-content;
     height: 100%;
     will-change: transform;
+    padding-left: 12.5vw;
+    padding-right: 12.5vw;
   }
 
   .card-container {
-    width: 100vw;
+    width: 75vw;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    padding: 2rem 0.5rem;
   }
 
   .card {
@@ -245,31 +247,78 @@
   }
 
   @media (max-width: 768px) {
+    .cards-wrapper {
+      padding-left: 5vw;
+      padding-right: 5vw;
+    }
+
     .card-container {
-      padding: 1.5rem 1rem;
+      padding: 1rem 0.5rem;
+      width: 90vw;
     }
 
     .card {
       flex-direction: column !important;
-      height: 85vh;
-      max-height: 750px;
+      height: 82vh; /* Even safer height */
+      max-height: 700px;
     }
 
     .card-content {
-      padding: 2.5rem 1.5rem;
+      padding: 1rem;
       flex: 1;
-      overflow-y: auto;
-      justify-content: flex-start;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.25rem;
     }
 
     .card-image {
-      flex: 0 0 35%;
+      flex: 0 0 40%; /* Reducido ligeramente para un mejor equilibrio */
       order: -1;
     }
 
+    .card-image img {
+      object-position: top center; /* Prioriza el tercio superior de la imagen */
+    }
+
     .card h2 {
-      font-size: 1.75rem;
-      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.1;
+    }
+
+    .card p {
+      font-size: 0.8rem;
+      margin-bottom: 0.4rem;
+      line-height: 1.3;
+    }
+
+    .card-content ul {
+      margin: 0.25rem 0 0.5rem;
+    }
+
+    .card-content li {
+      font-size: 0.75rem;
+      margin-bottom: 0.3rem;
+      padding-left: 1rem;
+    }
+
+    .card-content li::before {
+      top: 0.4rem;
+      width: 5px;
+      height: 5px;
+    }
+
+    .card-content blockquote {
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+      padding-left: 0.75rem;
+    }
+
+    .card-content blockquote::before {
+      font-size: 3rem;
+      top: -1rem;
     }
   }
 </style>

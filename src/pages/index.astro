@@ -3,18 +3,51 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import StickyColumns from '../components/StickyColumns.astro';
 import WorkGallery from '../components/WorkGallery.astro';
-import AthletesCarousel from '../components/AthletesCarousel.astro';
-import Testimonials from '../components/Testimonials.astro';
+import ServicesCards from '../components/ServicesCards.astro';
 import ChoosePath from '../components/ChoosePath.astro';
 import Footer from '../components/Footer.astro';
+
+const reviews = [
+  {
+    id: "01",
+    title: "ISABEL (JD Peformer desde hace 4 años)",
+    subtitle: "Resultado real",
+    description: "Empecé a entrenar con Pablo hace 4 años con una lesión reincidente de rodilla (cruzado y dos meniscos rotos y fractura de epífisis tibial), pésima forma física y hundida mentalmente. Los médicos desaconsejaron operar. Gracias a los sesudos entrenamientos de Pablo recuperé en un año la fuerza en la pierna, me equilibró todo el cuerpo y recuperó mi autoestima. Vuelvo a subir los alpes sin problema. No para nunca de estudiar y aplicar conocimientos vigilando la evolución de cada cuerpo. Ejercicios motivantes y novedosos sin extravagancia. Es superdivertido, respetuoso y cariñoso. Hasta que él se harte de mí ;-)",
+    image: "/assets/WEB/HOME/Foto 10. Reseña Isabel.jpeg",
+    features: []
+  },
+  {
+    id: "02",
+    title: "PAUL JORGENSEN (OG JD Athlete. 3 años juntos)",
+    subtitle: "Pro Performance",
+    description: "“Working with Pablo has really helped take my body and mind to next level. We do many specific movements for basketball that has helped make my body feel great when playing. Also we have done a huge amount of work on my feet and ankles. Some of the most underdeveloped part of many athletes. Beside being a great strength coach, I now consider him a good friend. I look forward to having another great offseason with him”",
+    image: "/assets/WEB/HOME/Foto 8. Reseña Paul Jorgensen.jpeg",
+    features: []
+  },
+  {
+    id: "03",
+    title: "MARÍA ESPÍN (OG JD Athlete. 3 años juntos)",
+    subtitle: "Élite y Prevención",
+    description: "Llevo ya tres años consecutivos entrenando con Pablo y, sin ninguna duda, es el mejor preparador físico que he tenido. Sus entrenamientos siempre son variados, dinámicos y perfectamente adaptados al deporte que practico, en mi caso el baloncesto. Se nota muchísimo que todo está pensado con un objetivo claro: mejorar el rendimiento real en pista. Una de las cosas que más valoro es cómo trabaja las transiciones entre ejercicios, ya que están muy bien enfocadas a lo que luego voy a necesitar en el juego. No es solo entrenar por entrenar, sino que todo tiene una aplicación directa. Además, a nivel de prevención de lesiones, el cambio ha sido enorme. Antes arrastraba molestias constantes en el tobillo y la rodilla, y desde que entreno con él prácticamente han desaparecido. Esto demuestra su conocimiento y la importancia que le da a trabajar de forma inteligente y segura. Pero más allá de lo técnico, también destacaría su implicación, su profesionalidad y su capacidad para motivarte en cada sesión. Siempre está pendiente de los detalles y de que des lo mejor de ti. Totalmente recomendable para cualquier persona que quiera mejorar su rendimiento, cuidarse físicamente y entrenar con alguien que realmente sabe lo que hace.",
+    image: "/assets/WEB/HOME/Foto 9. Reseña María Espín.png",
+    features: []
+  },
+  {
+    id: "04",
+    title: "JUAN (JD Performer desde hace año y medio)",
+    subtitle: "Salud y Fuerza",
+    description: "“Como atleta amateur con años de experiencia, había llegado a un techo de cristal: levantaba mucho peso, pero la falta de movilidad me impedía avanzar. Pablo identificó el problema desde el primer día. Lo que más valoro es que explica la razón científica de cada ejercicio; se nota que trabaja con profesionales de élite. Hemos mejorado mis rangos en cadera, tobillo, espalda y hombro. ¿El resultado? Un bienestar físico integral y, sorprendentemente, seguir batiendo mis marcas de fuerza a los 52 años. Pablo es el entrenador que necesitas si buscas rigor y resultados.”",
+    image: "/assets/WEB/HOME/Foto 11. Reseña Juan.jpeg",
+    features: []
+  }
+];
 ---
 
 <Layout title="JD COACH | Transform Your Limits">
 	<Hero />
 	<StickyColumns />
   <WorkGallery />
-  <AthletesCarousel />
-  <Testimonials />
+  <ServicesCards services={reviews} title="NO SERÁS EL PRIMERO, ELLOS YA LO PROBARON" subtitle="Historias de éxito" />
   <ChoosePath />
   <Footer />
 </Layout>
