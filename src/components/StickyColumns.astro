@@ -339,23 +339,50 @@
     }
   }
 
-  /* Ajustes para portátiles o pantallas con mucho zoom */
-  @media (max-height: 850px) and (min-width: 769px) {
-    .card h2 {
-      margin-bottom: 1rem;
+  }
+
+  /* REFUERZO PARA PANTALLAS PEQUEÑAS (Laptop / 720p / Zoom alto) */
+  @media (max-height: 750px) and (min-width: 769px) {
+    .card-container {
+      padding: 1rem;
     }
-    .card p {
+    .card {
+      height: 85vh;
+      min-height: 480px;
+    }
+    .card-content {
+      padding: 1.5rem 2.5rem;
+      flex: 1.5;
+    }
+    .card h2 {
+      font-size: 1.5rem;
       margin-bottom: 0.75rem;
     }
-    .card-content ul {
-      margin: 0.5rem 0 1rem;
-    }
-    .card-content li {
+    .card p {
+      font-size: 0.85rem;
       margin-bottom: 0.5rem;
     }
+    .card-content ul {
+      margin: 0.25rem 0 0.5rem;
+    }
+    .card-content li {
+      font-size: 0.8rem;
+      margin-bottom: 0.25rem;
+      padding-left: 1.25rem;
+    }
+    .card-content li::before {
+      top: 0.4rem;
+      width: 5px;
+      height: 5px;
+    }
     .card-content blockquote {
-      margin-top: 1rem;
-      font-size: 1.1rem;
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
+      padding-left: 1rem;
+    }
+    .card-content blockquote::before {
+      font-size: 2.5rem;
+      top: -0.75rem;
     }
   }
 </style>
