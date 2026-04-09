@@ -147,6 +147,7 @@
     width: 100%;
     max-width: 1200px;
     height: 80vh;
+    min-height: 550px;
     display: flex;
     flex-direction: row;
     overflow: hidden;
@@ -158,11 +159,17 @@
   }
 
   .card-content {
-    padding: 4rem;
-    flex: 1;
+    padding: clamp(2rem, 5vh, 4rem);
+    flex: 1.2;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+
+  .card-content::-webkit-scrollbar {
+    display: none;
   }
 
   .card-image {
@@ -329,6 +336,26 @@
     .card-content blockquote::before {
       font-size: 3rem;
       top: -1rem;
+    }
+  }
+
+  /* Ajustes para portátiles o pantallas con mucho zoom */
+  @media (max-height: 850px) and (min-width: 769px) {
+    .card h2 {
+      margin-bottom: 1rem;
+    }
+    .card p {
+      margin-bottom: 0.75rem;
+    }
+    .card-content ul {
+      margin: 0.5rem 0 1rem;
+    }
+    .card-content li {
+      margin-bottom: 0.5rem;
+    }
+    .card-content blockquote {
+      margin-top: 1rem;
+      font-size: 1.1rem;
     }
   }
 </style>
