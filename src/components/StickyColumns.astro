@@ -8,7 +8,7 @@
       <div class="card">
         <div class="card-content">
           <h2>La ciencia del alto rendimiento al servicio de tu objetivo.</h2>
-          <p>Soy Pablo Jiménez Daza, preparador físico y entrenador personal. Tras más de 10 años de experiencia y miles de horas en pista y gimnasio, mi conclusión es clara: el compromiso no entiende de categorías. Ya seas un jugador de la ACB o una persona que busca transformar su salud, mi enfoque es el mismo: máximo rigor técnico e implicación absoluta.</p>
+          <p>Soy Pablo Jiménez Daza, preparador físico y entrenador personal. Tras más de 10 años de experiencia y miles de horas en pista y gimnasio, mi conclusión es clara: <strong>el compromiso no entiende de categorías</strong>. Ya seas un jugador de la ACB o una persona que busca transformar su salud, mi enfoque es el mismo: máximo rigor técnico e implicación absoluta.</p>
         </div>
         <div class="card-image">
           <img src="/assets/WEB/HOME/Foto 1. Conóceme más.jpg" alt="Entrenador Personal Madrid" />
@@ -41,11 +41,7 @@
         <div class="card-content">
           <h2>Trayectoria: Del Élite al Alto Rendimiento Personal</h2>
           <p>
-            Mi criterio profesional se ha forjado en los escenarios más exigentes. Siendo
-            preparador físico de ligas profesionales desde hace 5 años. Durante dos años,
-            colaboré en el centro <strong>SC Performance</strong>, donde la exigencia técnica y el trato con
-            deportistas profesionales definieron mi estándar de calidad actual. He tenido el
-            privilegio de preparar a jugadores/as de:
+           Llevo 5 años trabajando como preparador físico en ligas profesionales. Esta experiencia junto con mi etapa en SC Performance fue clave para definir mi estándar de trabajo actual: rigor técnico y una atención al detalle constante. Durante este tiempo, he preparado a jugadores y jugadoras en:
           </p>
           <ul>
             <li><strong>Ligas Profesionales:</strong> ACB, NBA, Liga Femenina Endesa, Primera/Segunda FEB y Liga Challenge.</li>
@@ -69,7 +65,7 @@
       <div class="card reversed">
         <div class="card-content">
           <h2>Mi compromiso contigo: Un pacto de éxito</h2>
-          <p>No soy un entrenador que manda ejercicios; soy tu compañero de equipo. Mi método de trabajo se basa en una implicación innegociable:</p>
+          <p>No soy un entrenador que manda ejercicios; <strong>soy tu compañero de equipo</strong>. Mi método de trabajo se basa en una implicación innegociable:</p>
           <blockquote>
             "Tú marcas las metas y yo diseño el camino. Pero quiero que sepas algo: si tú fallas, fallamos los dos. Si logras tu objetivo, será el resultado de un esfuerzo compartido donde mi exigencia estará siempre a la altura de tu ambición."
           </blockquote>
@@ -89,27 +85,37 @@
   gsap.registerPlugin(ScrollTrigger);
 
   window.addEventListener('DOMContentLoaded', () => {
-    const wrapper = document.querySelector('.cards-wrapper');
+    const wrapper = document.querySelector('.cards-wrapper') as HTMLElement;
+    if (!wrapper) return;
 
-    function getScrollAmount() {
-      let wrapperWidth = wrapper.scrollWidth;
-      return -(wrapperWidth - window.innerWidth);
-    }
+    let mm = gsap.matchMedia();
 
-    const horizontalTween = gsap.to(wrapper, {
-      x: getScrollAmount,
-      ease: "none",
-    });
+    mm.add("(min-width: 769px)", () => {
+      function getScrollAmount() {
+        let wrapperWidth = wrapper.scrollWidth;
+        return -(wrapperWidth - window.innerWidth);
+      }
 
-    ScrollTrigger.create({
-      trigger: ".horizontal-scroll-section",
-      start: "top top",
-      end: () => `+=${Math.abs(getScrollAmount())}`,
-      pin: true,
-      animation: horizontalTween,
-      scrub: 1,
-      invalidateOnRefresh: true,
-      refreshPriority: 1,
+      const horizontalTween = gsap.to(wrapper, {
+        x: getScrollAmount,
+        ease: "none",
+      });
+
+      ScrollTrigger.create({
+        trigger: ".horizontal-scroll-section",
+        start: "top top",
+        end: () => `+=${Math.abs(getScrollAmount())}`,
+        pin: true,
+        animation: horizontalTween,
+        scrub: 1,
+        invalidateOnRefresh: true,
+        refreshPriority: 1,
+      });
+
+      return () => {
+        // Clean up or reset if needed (matchMedia handles most of it)
+        gsap.set(wrapper, { x: 0 });
+      };
     });
   });
 </script>
@@ -138,6 +144,7 @@
     align-items: center;
     justify-content: center;
     padding: 2rem 0.5rem;
+    flex-shrink: 0;
   }
 
   .card {
@@ -264,20 +271,39 @@
   }
 
   @media (max-width: 768px) {
+    .horizontal-scroll-section {
+      height: auto;
+      overflow: visible;
+      padding: 4rem 0;
+    }
+
     .cards-wrapper {
-      padding-left: 5vw;
-      padding-right: 5vw;
+      width: 100%;
+      height: auto;
+      overflow-x: auto;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE 10+ */
+      gap: 1rem;
+    }
+
+    .cards-wrapper::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
     }
 
     .card-container {
-      padding: 1rem 0.5rem;
-      width: 90vw;
+      padding: 0;
+      width: 85vw;
+      height: auto;
+      scroll-snap-align: center;
     }
 
     .card {
       flex-direction: column !important;
-      height: 82vh; /* Even safer height */
-      max-height: 700px;
+      height: 70vh;
+      min-height: 550px;
     }
 
     .card-content {

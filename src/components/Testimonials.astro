@@ -1,31 +1,31 @@
 ---
 const testimonials = [
   {
-    name: "Carlos Rodríguez",
+    name: "Carlos Rodríguez (Atleta de Élite)",
     role: "Atleta de Alto Rendimiento",
     text: "Trabajar con JD Coach ha sido un antes y un después en mi carrera. Lo que más valoro no es solo la planificación técnica, sino la capacidad que tiene para entender el momento psicológico del atleta. Sus sesiones me han permitido no solo alcanzar mis récords personales, sino mantenerme libre de lesiones durante dos temporadas completas. La integración de la app Harbiz facilita muchísimo el seguimiento diario, permitiéndome ver mi progresión en tiempo real.",
     rating: 5
   },
   {
-    name: "Elena Martínez",
+    name: "Elena Martínez (Transformación)",
     role: "Entrenamiento Personal Online",
     text: "Buscaba a alguien que me ayudara a cambiar mis hábitos desde casa y con JD encontré el método perfecto. Las rutinas son variadas, desafiantes pero siempre seguras. Me encanta que cada ejercicio viene con su vídeo explicativo, lo que me da la confianza de estar haciendo todo correctamente. He perdido 8kg en 4 meses, pero lo más importante es que me siento con una energía que no tenía desde hace años. Es mucho más que un entrenador, es un mentor que se preocupa por tu bienestar integral.",
     rating: 5
   },
   {
-    name: "Jordi S.",
+    name: "Jordi S. (Opositor Bombero)",
     role: "Preparación Física Oposiciones",
     text: "Mi objetivo era muy específico: las pruebas físicas de bombero. JD Coach diseñó un bloque de fuerza y potencia que me permitió superar con creces las marcas mínimas en apenas 6 meses. Su conocimiento sobre biomecánica es impresionante; corrigió vicios posturales que arrastraba desde hacía años y que me limitaban en el press de banca y las dominadas. Si quieres resultados reales y no solo 'entrenar por entrenar', este es el sitio.",
     rating: 5
   },
   {
-    name: "Miguel Ángel",
+    name: "Miguel Ángel (Triatlón)",
     role: "Triatleta Amateur",
     text: "Llevaba años estancado en mis tiempos de carrera. Con JD me di cuenta de que me faltaba un trabajo de fuerza específico que nunca había hecho. En solo una temporada he bajado 15 minutos mi marca en media maratón. Lo mejor es la flexibilidad y cómo adapta el plan a mi vida laboral.",
     rating: 5
   },
   {
-    name: "Lucía M.",
+    name: "Lucía M. (Crossfit)",
     role: "Crossfit & Performance",
     text: "Como deportista de Crossfit, necesitaba mejorar mi eficiencia en movimientos gimnásticos. El enfoque de JD en la movilidad y la técnica de base me ha permitido desbloquear movimientos que creía imposibles para mí. Un profesional de 10.",
     rating: 5
@@ -41,21 +41,29 @@ const testimonials = [
     </div>
 
     <div class="testimonials-list">
-      {testimonials.map((t, i) => (
-        <div class={`testimonial-card ${i >= 2 ? 'is-hidden' : ''}`} data-index={i}>
-          <div class="quote-icon">
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12.5 12C9.5 12 7.5 14 7.5 17C7.5 20 9.5 22 12.5 22H14.5C14.5 25 12.5 27 10.5 28L11.5 30C15.5 28 17.5 25 17.5 20V15C17.5 13 16.5 12 14.5 12H12.5ZM27.5 12C24.5 12 22.5 14 22.5 17C22.5 20 24.5 22 27.5 22H29.5C29.5 25 27.5 27 25.5 28L26.5 30C30.5 28 32.5 25 32.5 20V15C32.5 13 31.5 12 29.5 12H27.5Z" fill="currentColor"/>
-            </svg>
+      {testimonials.map((t, i) => {
+        const parts = t.name.split('(');
+        const mainName = parts[0].trim();
+        const subName = parts[1] ? `(${parts[1]}` : '';
+
+        return (
+          <div class={`testimonial-card ${i >= 2 ? 'is-hidden' : ''}`} data-index={i}>
+            <div class="quote-icon">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.5 12C9.5 12 7.5 14 7.5 17C7.5 20 9.5 22 12.5 22H14.5C14.5 25 12.5 27 10.5 28L11.5 30C15.5 28 17.5 25 17.5 20V15C17.5 13 16.5 12 14.5 12H12.5ZM27.5 12C24.5 12 22.5 14 22.5 17C22.5 20 24.5 22 27.5 22H29.5C29.5 25 27.5 27 25.5 28L26.5 30C30.5 28 32.5 25 32.5 20V15C32.5 13 31.5 12 29.5 12H27.5Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <p class="testimonial-text">{t.text}</p>
+            <div class="testimonial-info">
+              <div class="info-divider"></div>
+              <h4 class="testimonial-name">
+                {mainName} {subName && <span class="sub-name">{subName}</span>}
+              </h4>
+              <p class="testimonial-role">{t.role}</p>
+            </div>
           </div>
-          <p class="testimonial-text">{t.text}</p>
-          <div class="testimonial-info">
-            <div class="info-divider"></div>
-            <h4 class="testimonial-name">{t.name}</h4>
-            <p class="testimonial-role">{t.role}</p>
-          </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
 
     <div class="testimonials-cta">
@@ -154,6 +162,18 @@ const testimonials = [
   .testimonial-name {
     font-size: 1.2rem;
     letter-spacing: 0.05em;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .testimonial-name .sub-name {
+    font-size: 0.7rem;
+    opacity: 0.5;
+    font-weight: 300;
+    text-transform: none;
+    letter-spacing: 0;
   }
 
   .testimonial-role {

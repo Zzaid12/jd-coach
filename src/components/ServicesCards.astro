@@ -37,7 +37,16 @@ const {
 
         <div class="service-content">
           <div class="service-teaser">
-            <h3 class="service-title">{service.title}</h3>
+            {(() => {
+              const parts = service.title.split('(');
+              const mainTitle = parts[0].trim();
+              const subTitle = parts[1] ? `(${parts[1]}` : '';
+              return (
+                <h3 class="service-title">
+                  {mainTitle} {subTitle && <span class="sub-title">{subTitle}</span>}
+                </h3>
+              );
+            })()}
             <div class="expand-plus">
               <span></span>
               <span></span>
@@ -230,11 +239,25 @@ const {
   }
 
   .service-title {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     color: var(--color-primary);
-    line-height: 1;
+    line-height: 1.1;
     margin: 0;
     transition: font-size 0.5s ease;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .service-title .sub-title {
+    font-size: 1.5rem;
+    color: var(--color-light);
+    opacity: 0.4;
+    font-weight: 300;
+    text-transform: none;
+    letter-spacing: 0;
+    line-height: 1;
   }
 
   /* Details (Hidden when collapsed) */
