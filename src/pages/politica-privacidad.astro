@@ -1,0 +1,142 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Política de Privacidad | JD COACH">
+  <main class="legal-page">
+    <div class="container">
+      <h1>Política de Privacidad</h1>
+      <div class="content">
+        <section>
+          <h2>1. RESPONSABLE DEL TRATAMIENTO</h2>
+          <p>El responsable del tratamiento de los datos personales recogidos a través de este sitio web es:</p>
+          <ul>
+            <li><strong>Titular:</strong> Pablo Jiménez Daza</li>
+            <li><strong>Email:</strong> <a href="mailto:jotade.performance@gmail.com">jotade.performance@gmail.com</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>2. FINALIDAD DEL TRATAMIENTO</h2>
+          <p>Los datos personales del usuario que se recogen a través de formularios de contacto, suscripción o cualquier otra vía, serán tratados con las siguientes finalidades:</p>
+          <ul>
+            <li>Gestionar las solicitudes de información y consultas recibidas.</li>
+            <li>Gestión y planificación de servicios de entrenamiento personal y preparación física.</li>
+            <li>Envío de comunicaciones comerciales y promocionales relacionadas con nuestros servicios, siempre que el usuario haya dado su consentimiento previo y expreso.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>3. LEGITIMACIÓN</h2>
+          <p>La base legal para el tratamiento de sus datos es el consentimiento del usuario al facilitar sus datos a través de nuestros formularios y aceptar la presente Política de Privacidad.</p>
+        </section>
+
+        <section>
+          <h2>4. CONSERVACIÓN DE LOS DATOS</h2>
+          <p>Los datos personales proporcionados se conservarán mientras se mantenga la relación profesional o comercial, o durante los años necesarios para cumplir con las obligaciones legales.</p>
+        </section>
+
+        <section>
+          <h2>5. COMUNICACIÓN A TERCEROS</h2>
+          <p>Los datos no se comunicarán a terceros ajenos a Pablo Jiménez Daza, salvo obligación legal o que sea necesario para la prestación del servicio solicitado (por ejemplo, plataformas de gestión de entrenamiento).</p>
+        </section>
+
+        <section>
+          <h2>6. DERECHOS DE LOS USUARIOS</h2>
+          <p>Cualquier persona tiene derecho a obtener confirmación sobre si estamos tratando sus datos personales. Las personas interesadas tienen derecho a:</p>
+          <ul>
+            <li>Acceder a sus datos personales.</li>
+            <li>Pedir su rectificación o supresión.</li>
+            <li>Solicitar la limitación de su tratamiento.</li>
+            <li>Oponerse al tratamiento.</li>
+            <li>Solicitar la portabilidad de los datos.</li>
+          </ul>
+          <p>Para ejercer estos derechos, el usuario puede enviar una comunicación por escrito al email <a href="mailto:jotade.performance@gmail.com">jotade.performance@gmail.com</a> adjuntando copia de su DNI.</p>
+        </section>
+
+        <section>
+          <h2>7. SEGURIDAD</h2>
+          <p>JD COACH ha adoptado las medidas técnicas y organizativas necesarias para garantizar la seguridad de los datos de carácter personal y evitar su alteración, pérdida, tratamiento o acceso no autorizado, habida cuenta del estado de la tecnología, la naturaleza de los datos almacenados y los riesgos a que están expuestos.</p>
+        </section>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .legal-page {
+    padding: 10rem 2rem 6rem;
+    min-height: 100vh;
+    background: var(--color-dark);
+    color: var(--color-light);
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: clamp(3rem, 6vw, 5rem);
+    color: var(--color-primary);
+    margin-bottom: 4rem;
+    line-height: 0.9;
+  }
+
+  .content {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  section {
+    margin-bottom: 3rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-light);
+    letter-spacing: 0.05em;
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    opacity: 0.8;
+  }
+
+  ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+    opacity: 0.8;
+  }
+
+  li {
+    margin-bottom: 0.5rem;
+  }
+
+  strong {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  a {
+    color: var(--color-primary);
+    transition: opacity 0.3s ease;
+  }
+
+  a:hover {
+    opacity: 0.7;
+  }
+
+  @media (max-width: 768px) {
+    .legal-page {
+      padding: 8rem 1.5rem 4rem;
+    }
+    
+    h1 {
+      margin-bottom: 2rem;
+    }
+  }
+</style>

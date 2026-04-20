@@ -1,0 +1,120 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Política de Cookies | JD COACH">
+  <main class="legal-page">
+    <div class="container">
+      <h1>Política de Cookies</h1>
+      <div class="content">
+        <section>
+          <h2>1. ¿QUÉ SON LAS COOKIES?</h2>
+          <p>Una cookie es un fichero que se descarga en su ordenador al acceder a determinadas páginas web. Las cookies permiten a una página web, entre otras cosas, almacenar y recuperar información sobre los hábitos de navegación de un usuario o de su equipo y, dependiendo de la información que contengan y de la forma en que utilice su equipo, pueden utilizarse para reconocer al usuario.</p>
+        </section>
+
+        <section>
+          <h2>2. ¿QUÉ TIPOS DE COOKIES UTILIZA ESTA PÁGINA WEB?</h2>
+          <ul>
+            <li><strong>Cookies técnicas:</strong> Son aquellas que permiten al usuario la navegación a través de una página web, plataforma o aplicación y la utilización de las diferentes opciones o servicios que en ella existan.</li>
+            <li><strong>Cookies de personalización:</strong> Son aquellas que permiten al usuario acceder al servicio con algunas características de carácter general predefinidas en función de una serie de criterios en el terminal del usuario (por ejemplo, el idioma).</li>
+            <li><strong>Cookies de análisis:</strong> Son aquellas que, tratadas por nosotros o por terceros, nos permiten cuantificar el número de usuarios y así realizar la medición y análisis estadístico de la utilización que hacen los usuarios del servicio ofertado.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>3. CÓMO DESACTIVAR LAS COOKIES</h2>
+          <p>Usted puede permitir, bloquear o eliminar las cookies instaladas en su equipo mediante la configuración de las opciones del navegador instalado en su ordenador:</p>
+          <ul>
+            <li>Para más información sobre <strong>Chrome</strong>.</li>
+            <li>Para más información sobre <strong>Firefox</strong>.</li>
+            <li>Para más información sobre <strong>Safari</strong>.</li>
+            <li>Para más información sobre <strong>Edge</strong>.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>4. CONSENTIMIENTO</h2>
+          <p>Al navegar por este sitio web, el usuario acepta de manera implícita la instalación y uso de las cookies mencionadas anteriormente, conforme a los términos de esta Política de Cookies.</p>
+        </section>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .legal-page {
+    padding: 10rem 2rem 6rem;
+    min-height: 100vh;
+    background: var(--color-dark);
+    color: var(--color-light);
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: clamp(3rem, 6vw, 5rem);
+    color: var(--color-primary);
+    margin-bottom: 4rem;
+    line-height: 0.9;
+  }
+
+  .content {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  section {
+    margin-bottom: 3rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-light);
+    letter-spacing: 0.05em;
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    opacity: 0.8;
+  }
+
+  ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+    opacity: 0.8;
+  }
+
+  li {
+    margin-bottom: 0.5rem;
+  }
+
+  strong {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  a {
+    color: var(--color-primary);
+    transition: opacity 0.3s ease;
+  }
+
+  a:hover {
+    opacity: 0.7;
+  }
+
+  @media (max-width: 768px) {
+    .legal-page {
+      padding: 8rem 1.5rem 4rem;
+    }
+    
+    h1 {
+      margin-bottom: 2rem;
+    }
+  }
+</style>

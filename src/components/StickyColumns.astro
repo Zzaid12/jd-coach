@@ -302,22 +302,24 @@
 
     .card {
       flex-direction: column !important;
-      height: 70vh;
-      min-height: 550px;
+      height: 80vh;
+      min-height: 590px;
     }
 
-    .card-content {
-      padding: 1rem;
+     .card-content {
+      padding: 1.25rem 1rem;
       flex: 1;
-      overflow: hidden;
+      overflow-y: auto;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      gap: 0.25rem;
+      justify-content: flex-start;
+      gap: 0.4rem;
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-primary) transparent;
     }
 
     .card-image {
-      flex: 0 0 40%; /* Reducido ligeramente para un mejor equilibrio */
+      flex: 0 0 32%; /* Reducido un poco más para ganar espacio vertical */
       order: -1;
     }
 
@@ -332,8 +334,8 @@
     }
 
     .card p {
-      font-size: 0.8rem;
-      margin-bottom: 0.4rem;
+      font-size: 0.78rem; /* Ligeramente más pequeño para ajustar */
+      margin-bottom: 0.35rem;
       line-height: 1.3;
     }
 
